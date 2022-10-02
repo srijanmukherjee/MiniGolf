@@ -5,7 +5,8 @@
 
 class GameObject {
 public:
-    GameObject(const char* textureSheet);
+    GameObject() = default;
+    explicit GameObject(const char* textureSheet);
     ~GameObject();
 
     virtual void Update();

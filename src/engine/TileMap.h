@@ -4,22 +4,22 @@
 #include <vector>
 
 #include "Game.h"
+#include "GameObject.h"
 
-class TileMap {
+class TileMap : public GameObject {
 public:
+    TileMap() = default;
     ~TileMap();
-    virtual void RenderMap();
 
+    void Render() override;
 protected:
-    void LoadMap(const std::vector<std::vector<int>>& map, int tileSize);
-    void LoadTextures(const std::vector<const char *>& textures, const SDL_Rect& rect);
+    void LoadMap(const std::vector<std::vector<int>> &map, int tileSize);
+    void LoadTextures(const std::vector<const char *> &textures, const SDL_Rect &rect);
     void CleanTextures();
 
     std::vector<std::vector<int>> m_TileMap;
-    std::vector<SDL_Texture*> m_Textures;
+    std::vector<SDL_Texture *> m_Textures;
     int m_TileSize{};
-    SDL_Rect m_DestRect;
-    SDL_Rect m_SrcRect;
 };
 
 

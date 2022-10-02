@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "../GolfTileMap.h"
 
 SDL_Renderer *Game::renderer = nullptr;
 
@@ -37,14 +36,15 @@ void Game::Init(const char *title, int x, int y, int width, int height, bool ful
 
 void Game::HandleEvents() {
     SDL_Event event;
-    SDL_PollEvent(&event);
-    switch (event.type) {
-        case SDL_QUIT:
-            m_Running = false;
-            break;
-        default:
-            break;
-    }
+    while (SDL_PollEvent(&event))
+        switch (event.type) {
+            case SDL_QUIT:
+                m_Running = false;
+                break;
+            default:
+                ProcessEvent(event);
+                break;
+        }
 }
 
 void Game::Render() {

@@ -3,6 +3,7 @@
 
 
 #include "engine/Game.h"
+#include "engine/GameObject.h"
 
 class GolfGame : public Game {
 public:
@@ -11,8 +12,15 @@ public:
 
     void Init(const char *title, int x, int y, int width, int height, bool fullscreen) override;
     void Update() override;
-    void HandleEvents() override;
+private:
+
+    void AddGameObject(GameObject *gameObject);
+    std::vector<GameObject*> m_GameObjects;
+
+protected:
+
     void RenderGame() override;
+    void ProcessEvent(SDL_Event &event) override;
 };
 
 

@@ -5,7 +5,7 @@ TileMap::~TileMap() {
     CleanTextures();
 }
 
-void TileMap::RenderMap() {
+void TileMap::Render() {
     m_DestRect.x = m_DestRect.y = 0;
 
     for (int row = 0; row < m_TileMap.size(); row++) {

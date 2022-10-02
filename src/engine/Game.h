@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <spdlog/spdlog.h>
+#include <vector>
 
 #include "TextureManager.h"
 
@@ -23,10 +24,12 @@ public:
     static SDL_Renderer* renderer;
 private:
     bool m_Running = false;
-    virtual void RenderGame() = 0;
 
 protected:
     SDL_Window *window = nullptr;
+
+    virtual void RenderGame() = 0;
+    virtual void ProcessEvent(SDL_Event& event) = 0;
 };
 
 

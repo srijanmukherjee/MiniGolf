@@ -12,19 +12,27 @@ namespace GameMath {
     class Vector2D {
     public:
         Vector2D() = default;
+        Vector2D(double x, double y);
         Vector2D(int x, int y);
-        double Magnitude() const;
-        Vector2D Add(const Vector2D& other);
-        Vector2D Subtract(const Vector2D& other);
+        [[nodiscard]] double Magnitude() const;
+        [[nodiscard]] double Magnitude2() const;
+        [[nodiscard]] double dist(const Vector2D& other) const;
+        [[nodiscard]] double dist2(const Vector2D& other) const;
+        [[nodiscard]] Vector2D Add(const Vector2D& other) const;
+        [[nodiscard]] Vector2D Subtract(const Vector2D& other) const;
+        [[nodiscard]] Vector2D UnitVector() const;
 
-        Vector2D operator+(const Vector2D& other);
-        Vector2D operator-(const Vector2D& other);
+        Vector2D operator+(const Vector2D& other) const;
+        Vector2D operator-(const Vector2D& other) const;
+        Vector2D operator/(double val) const;
+        Vector2D operator*(double val) const;
+        void operator*=(double val);
         void operator+=(const Vector2D& other);
         void operator-=(const Vector2D& other);
 
     public:
-        int x{0};
-        int y{0};
+        double x{0};
+        double y{0};
     };
 
 } // GameMath
