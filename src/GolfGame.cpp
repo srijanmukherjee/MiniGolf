@@ -1,32 +1,37 @@
 #include "GolfGame.h"
 #include "GolfTileMap.h"
-#include "GolfBallGameObject.h"
+#include "components/SpriteComponent.h"
+#include "entitiy/Ball/BallEntity.h"
 
-GolfBallGameObject* golfBall;
+Manager manager;
+BallEntity *ballEntity;
+
 
 void GolfGame::Init(const char *title, int x, int y, int width, int height, bool fullscreen) {
     Game::Init(title, x, y, width, height, fullscreen);
 
-    golfBall = new GolfBallGameObject("../assets/textures/golf-ball.png");
-
     AddGameObject(new GolfTileMap());
-    AddGameObject(golfBall);
+    ballEntity = dynamic_cast<BallEntity *>(&manager.AddEntity<BallEntity>());
 };
 
 void GolfGame::Update() {
     for (auto & gameObject : m_GameObjects) {
         gameObject->Update();
     }
+
+    manager.Update();
 }
 
 void GolfGame::ProcessEvent(SDL_Event &event) {
     switch(event.type) {
         case SDL_MOUSEBUTTONDOWN:
-            golfBall->Hold();
+            ballEntity->OnMouseDown();
             break;
         case SDL_MOUSEBUTTONUP:
-            golfBall->Release();
+            ballEntity->OnMouseUp();
             break;
+        case SDL_MOUSEMOTION:
+            ballEntity->OnMouseMove();
         default:
             break;
     }
@@ -36,6 +41,8 @@ void GolfGame::RenderGame() {
     for (auto & gameObject : m_GameObjects) {
         gameObject->Render();
     }
+
+    manager.Draw();
 }
 
 GolfGame::~GolfGame() {

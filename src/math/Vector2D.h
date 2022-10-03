@@ -9,30 +9,34 @@
 
 namespace GameMath {
 
-    class Vector2D {
-    public:
+    struct Vector2D {
         Vector2D() = default;
-        Vector2D(double x, double y);
+        Vector2D(float x, float y);
         Vector2D(int x, int y);
-        [[nodiscard]] double Magnitude() const;
-        [[nodiscard]] double Magnitude2() const;
-        [[nodiscard]] double dist(const Vector2D& other) const;
-        [[nodiscard]] double dist2(const Vector2D& other) const;
+        [[nodiscard]] float Magnitude() const;
+        [[nodiscard]] float Magnitude2() const;
+        [[nodiscard]] float dist(const Vector2D& other) const;
+        [[nodiscard]] float dist2(const Vector2D& other) const;
         [[nodiscard]] Vector2D Add(const Vector2D& other) const;
         [[nodiscard]] Vector2D Subtract(const Vector2D& other) const;
         [[nodiscard]] Vector2D UnitVector() const;
+        [[nodiscard]] float Dot(const Vector2D& other) const;
+        [[maybe_unused]] [[nodiscard]] float angleBetween(const Vector2D& other) const;
 
         Vector2D operator+(const Vector2D& other) const;
         Vector2D operator-(const Vector2D& other) const;
-        Vector2D operator/(double val) const;
-        Vector2D operator*(double val) const;
-        void operator*=(double val);
+        Vector2D operator/(float val) const;
+        Vector2D operator*(float val) const;
+        void operator*=(float val);
+        void operator/=(float val);
         void operator+=(const Vector2D& other);
         void operator-=(const Vector2D& other);
+        bool operator==(const Vector2D& other) const;
 
-    public:
-        double x{0};
-        double y{0};
+        friend std::ostream& operator<<(std::ostream& stream, const Vector2D &vect);
+
+        float x{};
+        float y{0};
     };
 
 } // GameMath

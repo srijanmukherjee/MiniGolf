@@ -18,14 +18,12 @@ add_executable(GolfGame
         src/engine/TextureManager.cpp
         src/math/Vector2D.h
         src/math/Vector2D.cpp
-        src/GolfBallGameObject.h
-        src/GolfBallGameObject.cpp
         src/engine/TileMap.h
         src/engine/TileMap.cpp
         src/GolfGame.h
         src/GolfGame.cpp
         src/GolfTileMap.h
-        src/GolfTileMap.cpp src/math/Math.cpp src/math/Math.h)
+        src/GolfTileMap.cpp src/math/Math.cpp src/math/Math.h src/engine/ECS/ECS.h src/components/TransformComponent.h src/components/SpriteComponent.h src/entitiy/Ball/BallEntity.cpp src/entitiy/Ball/BallEntity.h src/entitiy/Ball/DirectionComponent.h)
 
 target_link_libraries(GolfGame
         PUBLIC SDL2main SDL2 SDL2_image
