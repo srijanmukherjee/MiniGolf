@@ -7,10 +7,11 @@
 
 
 #include "../../engine/ECS/ECS.h"
-#include "../../components/TransformComponent.h"
-#include "../../components/SpriteComponent.h"
+#include "../../engine/components/TransformComponent.h"
+#include "../../engine/components/SpriteComponent.h"
+#include "../CollidableEntity/CollidableEntity.h"
 
-class BallEntity : public Entity {
+class BallEntity : public CollidableEntity {
 public:
     BallEntity();
 
@@ -19,6 +20,7 @@ public:
     void OnMouseUp();
 
     void Update() override;
+    void OnCollision(ColliderComponent &collider) override;
 
 private:
     const int MAX_STRETCH = 95000;

@@ -26,6 +26,7 @@ void Game::Init(const char *title, int x, int y, int width, int height, bool ful
         spdlog::error("Failed to create renderer");
         return;
     }
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
     m_Running = true;
     spdlog::info("Game initialised");
@@ -43,20 +44,62 @@ void Game::HandleEvents() {
                 break;
             default:
                 ProcessEvent(event);
+                if (currentScene) currentScene->HandleEvent(event);
                 break;
         }
 }
 
 void Game::Render() {
-    SDL_RenderClear(renderer);
+    static SDL_Rect rect{0, 0, 800, 640};
+
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    RenderGame();
+    SDL_RenderClear(renderer);
+
+    if (currentScene) currentScene->Draw();
+
+    if (m_AnimatingSceneLoad) {
+        SDL_SetRenderDrawColor(renderer, m_AnimationMeta.r, m_AnimationMeta.g,
+                                        m_AnimationMeta.b, m_AnimationMeta.a);
+        SDL_RenderFillRect(renderer, &rect);
+        m_AnimationMeta.a -= 5;
+
+        if (m_AnimationMeta.a <= 0) {
+            m_AnimationMeta.a = 255;
+            m_AnimatingSceneLoad = false;
+        }
+    }
     SDL_RenderPresent(renderer);
 }
 
+void Game::Update() {
+    if (currentScene)
+        currentScene->Update();
+}
+
 void Game::Clean() {
+    delete currentScene;
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     spdlog::info("Game cleaned");
+}
+
+void Game::PresentScene() {
+    if (currentScene == nullptr) return;
+    m_AnimatingSceneLoad = true;
+}
+
+void Game::LoadScene(Scene *scene) {
+    spdlog::info("loading scene");
+    delete currentScene;
+    currentScene = scene;
+    currentScene->Init();
+    PresentScene();
+}
+
+Game::Game() {
+    m_AnimationMeta.r = 0;
+    m_AnimationMeta.g = 0;
+    m_AnimationMeta.b = 0;
+    m_AnimationMeta.a = 255;
 }

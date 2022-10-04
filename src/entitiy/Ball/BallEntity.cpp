@@ -5,11 +5,12 @@
 
 Vector2D startPos;
 
-BallEntity::BallEntity() {
-    AddComponent<TransformComponent>(50, 150);
+BallEntity::BallEntity() : CollidableEntity("ball") {
     AddComponent<SpriteComponent>("../assets/textures/ball.png");
     AddComponent<DirectionComponent>(20).Hide();
     m_Transform = &GetComponent<TransformComponent>();
+    m_Transform->position.x = 50;
+    m_Transform->position.y = 150;
 }
 
 void BallEntity::OnMouseDown() {
@@ -88,4 +89,8 @@ void BallEntity::Update() {
     if (m_Transform->velocity.Magnitude() < 0.8) {
         m_Transform->velocity *= 0;
     }
+}
+
+void BallEntity::OnCollision(ColliderComponent &collider) {
+    spdlog::info("collided with {}", collider.tag);
 }

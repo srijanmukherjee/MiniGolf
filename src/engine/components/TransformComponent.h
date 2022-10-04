@@ -1,8 +1,8 @@
 #ifndef GOLFGAME_TRANSFORMCOMPONENT_H
 #define GOLFGAME_TRANSFORMCOMPONENT_H
 
-#include "../engine/ECS/ECS.h"
-#include "../math/Vector2D.h"
+#include "../ECS/ECS.h"
+#include "../../math/Vector2D.h"
 
 using GameMath::Vector2D;
 

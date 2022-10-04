@@ -7,29 +7,45 @@
 #include <vector>
 
 #include "TextureManager.h"
+#include "Scene.h"
+
+struct SceneLoadAnimationMeta {
+    int r;
+    int g;
+    int b;
+    int a;
+};
 
 class Game {
 public:
-    Game() = default;
+    Game();
     virtual ~Game();
     virtual void Init(const char *title, int x, int y, int width, int height, bool fullscreen);
 
     virtual void HandleEvents();
-    virtual void Update() = 0;
+    virtual void Update();
     void Render();
     void Clean();
 
     [[nodiscard]] bool IsRunning() const { return m_Running; }
 
     static SDL_Renderer* renderer;
+
 private:
     bool m_Running = false;
+    bool m_AnimatingSceneLoad = false;
+    SceneLoadAnimationMeta m_AnimationMeta;
+
+    void PresentScene();
 
 protected:
     SDL_Window *window = nullptr;
+    Scene *currentScene = nullptr;
 
-    virtual void RenderGame() = 0;
-    virtual void ProcessEvent(SDL_Event& event) = 0;
+    virtual void RenderGame() { };
+    virtual void ProcessEvent(SDL_Event& event) { };
+
+    void LoadScene(Scene *scene);
 };
 
 

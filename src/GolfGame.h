@@ -11,16 +11,6 @@ public:
     ~GolfGame() override;
 
     void Init(const char *title, int x, int y, int width, int height, bool fullscreen) override;
-    void Update() override;
-private:
-
-    void AddGameObject(GameObject *gameObject);
-    std::vector<GameObject*> m_GameObjects;
-
-protected:
-
-    void RenderGame() override;
-    void ProcessEvent(SDL_Event &event) override;
 };
 
 

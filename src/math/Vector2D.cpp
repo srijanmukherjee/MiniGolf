@@ -1,7 +1,3 @@
-//
-// Created by srijan on 10/2/22.
-//
-
 #include <iostream>
 #include "Vector2D.h"
 

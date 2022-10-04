@@ -2,7 +2,7 @@
 #define GOLFGAME_COLLISION_H
 
 
-#include "../../engine/ECS/ECS.h"
+#include "../../ECS/ECS.h"
 
 class Collision {
 public:

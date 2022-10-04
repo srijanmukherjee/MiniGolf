@@ -2,7 +2,7 @@
 #define GOLFGAME_DIRECTIONCOMPONENT_H
 
 #include "../../engine/ECS/ECS.h"
-#include "../../components/SpriteComponent.h"
+#include "../../engine/components/SpriteComponent.h"
 
 #include <cmath>
 

@@ -2,7 +2,7 @@
 #define GOLFGAME_COLLIDERCOMPONENT_H
 
 #include <SDL2/SDL_rect.h>
-#include "../../engine/ECS/ECS.h"
+#include "../../ECS/ECS.h"
 #include "../TransformComponent.h"
 
 class ColliderComponent : public Component {
