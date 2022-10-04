@@ -23,7 +23,7 @@ public:
         transform = &entity->GetComponent<TransformComponent>();
     }
 
-    void Update() override {
+    void Update(float deltaTime) override {
         collider.x = static_cast<int>(transform->position.x);
         collider.y = static_cast<int>(transform->position.y);
         collider.w = transform->width * transform->scale;

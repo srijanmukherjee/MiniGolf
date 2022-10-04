@@ -8,7 +8,7 @@ GameObject::~GameObject() {
     SDL_DestroyTexture(m_ObjTexture);
 }
 
-void GameObject::Update() {
+void GameObject::Update(float deltaTime) {
 
 }
 

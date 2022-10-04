@@ -15,8 +15,8 @@ public:
         m_Sprite = &AddComponent<SpriteComponent>("../assets/textures/arrow.png");
     }
 
-    void Update() override {
-        Entity::Update();
+    void Update(float deltaTime) override {
+        Entity::Update(deltaTime);
     }
 
     void Draw() override {
@@ -46,8 +46,8 @@ private:
     float m_Radius = 0;
 
     void RotateAboutBy(const Vector2D& mid, int rot) {
-        m_Transform->position.x = (float) (mid.x - 16 * std::cos(rot * M_PI / 180) + (m_Radius + 32) * std::cos((90 - rot) * M_PI / 180));
-        m_Transform->position.y = (float) (mid.y - 16 * std::cos((90 - rot) * M_PI / 180) - (m_Radius + 32) * std::cos(rot * M_PI / 180));
+        m_Transform->position.x = (float) (mid.x - 16 * std::cos(rot * M_PI / 180) + (m_Radius + 16) * std::cos((90 - rot) * M_PI / 180));
+        m_Transform->position.y = (float) (mid.y - 16 * std::cos((90 - rot) * M_PI / 180) - (m_Radius + 16) * std::cos(rot * M_PI / 180));
         m_Transform->SetRotation((float) rot);
     }
 };

@@ -8,7 +8,7 @@ class PlayScene : public Scene {
 public:
     void Init() override;
     void Draw() override;
-    void Update() override;
+    void Update(float deltaTime) override;
     void HandleEvent(SDL_Event &event) override;
 };
 

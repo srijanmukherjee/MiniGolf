@@ -22,7 +22,7 @@ public:
     virtual void Init(const char *title, int x, int y, int width, int height, bool fullscreen);
 
     virtual void HandleEvents();
-    virtual void Update();
+    virtual void Update(float deltaTime);
     void Render();
     void Clean();
 
@@ -34,32 +34,32 @@ public:
 
     template <class T>
     static void Start(int targetFPS, const char *title, int x, int y, int width, int height, bool fullscreen) {
-        const int frameDelay = 1000 / targetFPS;
-
-        Uint32 frameStart;
-        Uint32 frameTime;
+        const int frameDelay = std::ceil(1000 / (float) targetFPS);
 
         Game* game = new T();
 
         game->Init(title, x, y, width, height, fullscreen);
 
+        Uint32 lastFrameTime = 0;
+        Uint32 time = 0;
+        float delta = 0;
+
         while (game->IsRunning()) {
-            frameStart = SDL_GetTicks();
+            time = SDL_GetTicks();
+            delta = time - lastFrameTime;
+            lastFrameTime = time;
 
             game->HandleEvents();
-            game->Update();
+            game->Update(delta / 1000.0f);
             game->Render();
 
-            frameTime = SDL_GetTicks() - frameStart;
-
-            if (frameDelay > frameTime) {
-                SDL_Delay(frameDelay - frameTime);
+            if (delta < frameDelay) {
+                SDL_Delay(frameDelay - delta);
             }
 
             // display fps (TODO: display only for debug build using macro)
-            frameTime = SDL_GetTicks() - frameStart;
             std::string titleWithFPS = title;
-            titleWithFPS += " | FPS: " + std::to_string(static_cast<int>(1000.0/frameTime));
+            titleWithFPS += " | delta: " + std::to_string(static_cast<float>(1000/delta));
             game->SetWindowTitle(titleWithFPS.c_str());
         }
 

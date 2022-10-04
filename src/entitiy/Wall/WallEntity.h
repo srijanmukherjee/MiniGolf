@@ -8,7 +8,7 @@ class WallEntity : public CollidableEntity {
 public:
     explicit WallEntity(void * scene, const std::string &tag);
     WallEntity(void * scene, const std::string &tag, const SDL_Rect &dimension);
-    void OnCollision(ColliderComponent &collider) override;
+    void OnCollision(ColliderComponent &collider, float deltaTime) override;
 };
 
 

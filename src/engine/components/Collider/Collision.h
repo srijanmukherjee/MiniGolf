@@ -6,7 +6,7 @@
 
 class Collision {
 public:
-    static bool AABB(Entity &a, Entity &b);
+    static bool AABB(Entity &a, Entity &b, float deltaTime);
 };
 
 

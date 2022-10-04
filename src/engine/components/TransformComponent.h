@@ -30,9 +30,9 @@ public:
         scale = sc;
     }
 
-    void Update() override {
-        velocity += acceleration;
-        position += velocity;
+    void Update(float deltaTime) override {
+        velocity += acceleration * deltaTime;
+        position += velocity * deltaTime;
     }
 
     void SetRotation(float rot) {

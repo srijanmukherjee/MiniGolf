@@ -69,6 +69,8 @@ namespace GameMath {
     }
 
     Vector2D Vector2D::UnitVector() const {
+        float mag = Magnitude();
+        if (mag == 0) return { 0, 0};
         return *this / Magnitude();
     }
 

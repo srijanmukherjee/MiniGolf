@@ -13,22 +13,22 @@
 
 class BallEntity : public CollidableEntity {
 public:
-    BallEntity(void * scene);
+    explicit BallEntity(void * scene);
 
     void OnMouseMove();
     void OnMouseDown();
     void OnMouseUp();
 
-    void Update() override;
-    void OnCollision(ColliderComponent &collider) override;
+    void Update(float deltaTime) override;
+    void OnCollision(ColliderComponent &collider, float deltaTime) override;
 
 private:
     const int MAX_STRETCH = 95000;
-    const int MAX_SPEED = 40;
+    const int MAX_SPEED = 2000;
 
     TransformComponent *m_Transform;
     bool m_IsHolding = false;
-    float m_Friction = 0.01;
+    float m_Friction = 0.992;
 };
 
 

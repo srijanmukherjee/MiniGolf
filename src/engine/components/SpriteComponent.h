@@ -27,7 +27,7 @@ public:
         m_SrcRect.h = m_Transform->height;
     }
 
-    void Update() override {
+    void Update(float deltaTime) override {
         m_DestRect.x = (int) m_Transform->position.x;
         m_DestRect.y = (int) m_Transform->position.y;
     }

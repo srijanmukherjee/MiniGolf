@@ -10,6 +10,6 @@ WallEntity::WallEntity(void * scene, const std::string &tag, const SDL_Rect &dim
     transform.height        = dimension.h;
 }
 
-void WallEntity::OnCollision(ColliderComponent &collider) {
+void WallEntity::OnCollision(ColliderComponent &collider, float deltaTime) {
 
 }

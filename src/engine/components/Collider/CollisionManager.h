@@ -12,13 +12,19 @@ public:
         m_Entities.push_back(entity);
     }
 
-    void Update() {
+    void StartDetectingCollision() {
+        m_Listening = true;
+    }
+
+    void Update(float deltaTime) {
+        if (!m_Listening) return;
+
         for (auto e1 : m_Entities) {
             for (auto e2 : m_Entities) {
                 if (e1 == e2) continue;
 
-                if (Collision::AABB(*e1, *e2)) {
-                    e1->OnCollision(e2->GetComponent<ColliderComponent>());
+                if (Collision::AABB(*e1, *e2, deltaTime)) {
+                    e1->OnCollision(e2->GetComponent<ColliderComponent>(), deltaTime);
                 }
             }
         }
@@ -26,6 +32,7 @@ public:
 
 private:
     std::vector<CollidableEntity*> m_Entities{};
+    bool m_Listening = false;
 };
 
 

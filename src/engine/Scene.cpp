@@ -1,8 +1,8 @@
 #include "Scene.h"
 
-void Scene::Update() {
-    m_CollisionManager.Update();
-    m_Manager.Update();
+void Scene::Update(float deltaTime) {
+    m_CollisionManager.Update(deltaTime);
+    m_Manager.Update(deltaTime);
 }
 
 void Scene::Draw() {

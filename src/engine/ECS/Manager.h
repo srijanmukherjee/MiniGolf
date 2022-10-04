@@ -8,9 +8,9 @@ private:
     std::vector<std::unique_ptr<Entity>> m_Entities{};
 
 public:
-    void Update() {
+    void Update(float deltaTime) {
         for (auto & e : m_Entities) {
-            e->Update();
+            e->Update(deltaTime);
         }
     }
 

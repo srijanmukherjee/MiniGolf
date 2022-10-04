@@ -1,7 +1,7 @@
 #include "Collision.h"
 #include "ColliderComponent.h"
 
-bool Collision::AABB(Entity &a, Entity &b) {
+bool Collision::AABB(Entity &a, Entity &b, float deltaTime) {
     if (!a.HasComponent<ColliderComponent>()) {
         throw std::invalid_argument("Entity (a) must have a collider component");
     }
@@ -14,10 +14,12 @@ bool Collision::AABB(Entity &a, Entity &b) {
     auto rectB = b.GetComponent<ColliderComponent>().collider;
     auto &transformA = a.GetComponent<TransformComponent>();
     auto &transformB = b.GetComponent<TransformComponent>();
-    rectA.x += (int)transformA.velocity.x;
-    rectA.y += (int)transformA.velocity.y;
-    rectB.x += (int)transformB.velocity.x;
-    rectB.y += (int)transformB.velocity.y;
+
+    // project the rect by the velocity to detect possible collision in the next frame
+    rectA.x += transformA.velocity.x * deltaTime;
+    rectA.y += transformA.velocity.y * deltaTime;
+    rectB.x += transformB.velocity.x * deltaTime;
+    rectB.y += transformB.velocity.y * deltaTime;
 
     return rectA.x + rectA.w >= rectB.x && rectB.x + rectB.w >= rectA.x &&
             rectA.y + rectA.h >= rectB.y && rectB.y + rectB.h >= rectA.y;

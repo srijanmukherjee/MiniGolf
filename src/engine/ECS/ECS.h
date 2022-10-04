@@ -34,7 +34,7 @@ public:
     Entity *entity{};
 
     virtual void Init() { };
-    virtual void Update() { };
+    virtual void Update(float deltaTime) { };
     virtual void Draw() { };
     virtual ~Component() = default;;
 };
@@ -45,10 +45,10 @@ public:
 
     explicit Entity(void *scene) : scene(scene) {}
 
-    virtual void Update() {
+    virtual void Update(float deltaTime) {
         for (auto c : m_Components) {
             if (c == nullptr) continue;
-            c->Update();
+            c->Update(deltaTime);
         }
     }
 

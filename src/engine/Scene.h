@@ -11,7 +11,7 @@ public:
     Scene() = default;
     virtual ~Scene() = default;
 
-    virtual void Update();
+    virtual void Update(float deltaTime);
     virtual void Draw();
     virtual void HandleEvent(SDL_Event &event);
     virtual void Init() { };

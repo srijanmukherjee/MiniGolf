@@ -9,7 +9,7 @@ public:
     explicit GameObject(const char* textureSheet);
     ~GameObject();
 
-    virtual void Update();
+    virtual void Update(float deltaTime);
     virtual void Render();
 
 protected:

@@ -73,9 +73,9 @@ void Game::Render() {
     SDL_RenderPresent(renderer);
 }
 
-void Game::Update() {
+void Game::Update(float deltaTime) {
     if (currentScene)
-        currentScene->Update();
+        currentScene->Update(deltaTime);
 }
 
 void Game::Clean() {

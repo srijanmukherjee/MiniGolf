@@ -1,4 +1,3 @@
-#include <iostream>
 #include "BallEntity.h"
 #include "../../math/Math.h"
 #include "DirectionComponent.h"
@@ -6,11 +5,13 @@
 Vector2D startPos;
 
 BallEntity::BallEntity(void * scene) : CollidableEntity(scene, "ball") {
-    AddComponent<SpriteComponent>("../assets/textures/ball.png");
-    AddComponent<DirectionComponent>(20).Hide();
     m_Transform = &GetComponent<TransformComponent>();
     m_Transform->position.x = 50;
     m_Transform->position.y = 150;
+    m_Transform->width = 16;
+    m_Transform->height = 16;
+    AddComponent<SpriteComponent>("../assets/textures/ball_2.png");
+    AddComponent<DirectionComponent>(25).Hide();
 }
 
 void BallEntity::OnMouseDown() {
@@ -63,27 +64,42 @@ void BallEntity::OnMouseMove() {
         SDL_GetMouseState(&mx, &my);
         GameMath::Vector2D mousePos{mx, my};
 
-        GetComponent<DirectionComponent>().PointTowards(startPos - mousePos, m_Transform->position + Vector2D(16, 16));
+        GetComponent<DirectionComponent>().PointTowards(startPos - mousePos, m_Transform->position + Vector2D(8, 8));
         GetComponent<DirectionComponent>().Show();
     }
 }
 
-void BallEntity::Update() {
-    Entity::Update();
+void BallEntity::Update(float deltaTime) {
+    Entity::Update(deltaTime);
 
-    m_Transform->velocity *= (1 - m_Friction);
+    float mag = m_Transform->velocity.Magnitude();
+    m_Transform->velocity = m_Transform->velocity.UnitVector() * mag * ( 1 - m_Friction * deltaTime );
 
-    if (m_Transform->velocity.Magnitude() < 0.8) {
+    if (m_Transform->velocity.Magnitude2() < 1) {
         m_Transform->velocity *= 0;
     }
 }
 
-void BallEntity::OnCollision(ColliderComponent &collider) {
+void BallEntity::OnCollision(ColliderComponent &collider, float deltaTime) {
     if (collider.tag == "wall_horizontal") {
         m_Transform->velocity.y *= -1;
-        m_Transform->position.y = (float) (int) (m_Transform->position.y + m_Transform->velocity.y);
+        m_Transform->position.y += m_Transform->velocity.y * deltaTime;
     } else if (collider.tag == "wall_vertical") {
         m_Transform->velocity.x *= -1;
-        m_Transform->position.x = (float) (int) (m_Transform->position.x + m_Transform->velocity.x);
+        m_Transform->position.x += m_Transform->velocity.x * deltaTime;
+    } else if (collider.tag == "obstacle") {
+        Vector2D pos = collider.transform->position;
+        int w = collider.transform->width;
+        int h = collider.transform->height;
+        if ((pos.x >= pos.x && pos.x <= pos.x + w) ||
+            ((m_Transform->position.x + m_Transform->width >= pos.x && m_Transform->position.x + m_Transform->width <= pos.x + w))) {
+            m_Transform->velocity.y *= -1;
+            m_Transform->position.y += m_Transform->velocity.y * deltaTime;
+        }
+        if ((m_Transform->position.y >= pos.y && m_Transform->position.y <= pos.y + h) ||
+            (m_Transform->position.y + m_Transform->height >= pos.y && m_Transform->position.y + m_Transform->height <= pos.y + h)) {
+            m_Transform->velocity.x *= -1;
+            m_Transform->position.x += m_Transform->velocity.x * deltaTime;
+        }
     }
 }
