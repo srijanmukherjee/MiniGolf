@@ -14,12 +14,15 @@ bool Collision::AABB(Entity &a, Entity &b, float deltaTime) {
     auto rectB = b.GetComponent<ColliderComponent>().collider;
     auto &transformA = a.GetComponent<TransformComponent>();
     auto &transformB = b.GetComponent<TransformComponent>();
-
+    Vector2D posA = transformA.position;
+    Vector2D posB = transformB.position;
     // project the rect by the velocity to detect possible collision in the next frame
-    rectA.x += transformA.velocity.x * deltaTime;
-    rectA.y += transformA.velocity.y * deltaTime;
-    rectB.x += transformB.velocity.x * deltaTime;
-    rectB.y += transformB.velocity.y * deltaTime;
+    posA += transformA.velocity * deltaTime;
+    posB += transformB.velocity * deltaTime;
+    rectA.x = posA.x;
+    rectA.y = posA.y;
+    rectB.x = posB.x;
+    rectB.y = posB.y;
 
     return rectA.x + rectA.w >= rectB.x && rectB.x + rectB.w >= rectA.x &&
             rectA.y + rectA.h >= rectB.y && rectB.y + rectB.h >= rectA.y;

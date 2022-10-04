@@ -15,6 +15,9 @@ void PlayScene::Init() {
     m_Manager.AddEntity<ObstacleSmall>(this).SetPosition(64, 64);
     m_Manager.AddEntity<ObstacleSmall>(this).SetPosition(96, 64);
     m_Manager.AddEntity<ObstacleBig>(this).SetPosition(96, 196);
+    m_Manager.AddEntity<ObstacleBig>(this).SetPosition(96, 196);
+    m_Manager.AddEntity<ObstacleBig>(this).SetPosition(160, 196);
+    m_Manager.AddEntity<ObstacleBig>(this).SetPosition(224, 196);
     m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, -1, Constant::SCREEN_WIDTH, 1 });
     m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, Constant::SCREEN_HEIGHT, Constant::SCREEN_WIDTH, 1 });
     m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ -1, 0, 1, Constant::SCREEN_HEIGHT });

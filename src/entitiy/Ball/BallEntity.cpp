@@ -75,7 +75,7 @@ void BallEntity::Update(float deltaTime) {
     float mag = m_Transform->velocity.Magnitude();
     m_Transform->velocity = m_Transform->velocity.UnitVector() * mag * ( 1 - m_Friction * deltaTime );
 
-    if (m_Transform->velocity.Magnitude2() < 1) {
+    if (m_Transform->velocity.Magnitude() < 15) {
         m_Transform->velocity *= 0;
     }
 }
