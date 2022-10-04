@@ -81,9 +81,9 @@ void BallEntity::Update() {
 void BallEntity::OnCollision(ColliderComponent &collider) {
     if (collider.tag == "wall_horizontal") {
         m_Transform->velocity.y *= -1;
-        m_Transform->position.y += m_Transform->velocity.y;
+        m_Transform->position.y = (float) (int) (m_Transform->position.y + m_Transform->velocity.y);
     } else if (collider.tag == "wall_vertical") {
         m_Transform->velocity.x *= -1;
-        m_Transform->position.x += m_Transform->velocity.x;
+        m_Transform->position.x = (float) (int) (m_Transform->position.x + m_Transform->velocity.x);
     }
 }
