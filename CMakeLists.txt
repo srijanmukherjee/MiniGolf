@@ -23,7 +23,7 @@ add_executable(GolfGame
         src/GolfGame.h
         src/GolfGame.cpp
         src/GolfTileMap.h
-        src/GolfTileMap.cpp src/math/Math.cpp src/math/Math.h src/engine/ECS/ECS.h src/components/TransformComponent.h src/components/SpriteComponent.h src/entitiy/Ball/BallEntity.cpp src/entitiy/Ball/BallEntity.h src/entitiy/Ball/DirectionComponent.h)
+        src/GolfTileMap.cpp src/math/Math.cpp src/math/Math.h src/engine/ECS/ECS.h src/components/TransformComponent.h src/components/SpriteComponent.h src/entitiy/Ball/BallEntity.cpp src/entitiy/Ball/BallEntity.h src/entitiy/Ball/DirectionComponent.h src/components/Collider/ColliderComponent.h src/components/Collider/Collision.cpp src/components/Collider/Collision.h)
 
 target_link_libraries(GolfGame
         PUBLIC SDL2main SDL2 SDL2_image

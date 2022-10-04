@@ -14,14 +14,17 @@ public:
     }
 
     void SetTexture(const char * path) {
+        if (m_Texture) SDL_DestroyTexture(m_Texture);
         m_Texture = TextureManager::LoadTexture(path);
     }
 
     void Init() override {
         m_Transform = &entity->GetComponent<TransformComponent>();
         m_SrcRect.x = m_SrcRect.y = 0;
-        m_SrcRect.w = m_SrcRect.h = 32;
-        m_DestRect.w = m_DestRect.h = 32;
+        m_DestRect.w = m_Transform->width * m_Transform->scale;
+        m_DestRect.h = m_Transform->height * m_Transform->scale;
+        m_SrcRect.w = m_Transform->width;
+        m_SrcRect.h = m_Transform->height;
     }
 
     void Update() override {
@@ -48,6 +51,10 @@ public:
 
     void Hide() {
         m_IsVisible = false;
+    }
+
+    ~SpriteComponent() override {
+        if (m_Texture) SDL_DestroyTexture(m_Texture);
     }
 private:
     TransformComponent *m_Transform = nullptr;
