@@ -8,7 +8,7 @@
 
 class DirectionComponent : public Entity, public Component {
 public:
-    explicit DirectionComponent(float radius) : m_Radius(radius) { }
+    explicit DirectionComponent(float radius) : m_Radius(radius), Entity(nullptr) { }
 
     void Init() override {
         m_Transform = &AddComponent<TransformComponent>();

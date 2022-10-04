@@ -18,7 +18,6 @@ struct SceneLoadAnimationMeta {
 
 class Game {
 public:
-    Game();
     virtual ~Game();
     virtual void Init(const char *title, int x, int y, int width, int height, bool fullscreen);
 
@@ -27,14 +26,50 @@ public:
     void Render();
     void Clean();
 
+    void SetWindowTitle(const char * title);
+
     [[nodiscard]] bool IsRunning() const { return m_Running; }
 
     static SDL_Renderer* renderer;
 
+    template <class T>
+    static void Start(int targetFPS, const char *title, int x, int y, int width, int height, bool fullscreen) {
+        const int frameDelay = 1000 / targetFPS;
+
+        Uint32 frameStart;
+        Uint32 frameTime;
+
+        Game* game = new T();
+
+        game->Init(title, x, y, width, height, fullscreen);
+
+        while (game->IsRunning()) {
+            frameStart = SDL_GetTicks();
+
+            game->HandleEvents();
+            game->Update();
+            game->Render();
+
+            frameTime = SDL_GetTicks() - frameStart;
+
+            if (frameDelay > frameTime) {
+                SDL_Delay(frameDelay - frameTime);
+            }
+
+            // display fps (TODO: display only for debug build using macro)
+            frameTime = SDL_GetTicks() - frameStart;
+            std::string titleWithFPS = title;
+            titleWithFPS += " | FPS: " + std::to_string(static_cast<int>(1000.0/frameTime));
+            game->SetWindowTitle(titleWithFPS.c_str());
+        }
+
+        delete game;
+    }
+
 private:
     bool m_Running = false;
     bool m_AnimatingSceneLoad = false;
-    SceneLoadAnimationMeta m_AnimationMeta;
+    SceneLoadAnimationMeta m_AnimationMeta{0, 0, 0, 255};
 
     void PresentScene();
 

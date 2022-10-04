@@ -41,6 +41,10 @@ public:
 
 class Entity {
 public:
+    void *scene;
+
+    explicit Entity(void *scene) : scene(scene) {}
+
     virtual void Update() {
         for (auto c : m_Components) {
             if (c == nullptr) continue;
@@ -101,51 +105,6 @@ private:
     bool m_Active = true;
     ComponentList m_Components = std::vector<Component*>(maxComponents, nullptr);
     ComponentBitset m_ComponentBitset;
-};
-
-class Manager {
-private:
-    std::vector<std::unique_ptr<Entity>> m_Entities;
-
-public:
-    void Update() {
-        for (auto & e : m_Entities) {
-            e->Update();
-        }
-    }
-
-    void Draw() {
-        for (auto & e : m_Entities) {
-            e->Draw();
-        }
-    }
-
-    void Refresh() {
-        m_Entities.erase(
-                std::remove_if(
-                    std::begin(m_Entities),
-                    std::end(m_Entities),
-                    [](const std::unique_ptr<Entity> &entity) {
-                            return !entity->IsActive();
-                    }
-                ),
-                std::end(m_Entities));
-    }
-
-    Entity& AddEntity() {
-        auto *e = new Entity();
-        std::unique_ptr<Entity> uEntity { e };
-        m_Entities.emplace_back(std::move(uEntity));
-        return *e;
-    }
-
-    template <class T>
-    Entity& AddEntity() {
-        Entity *e = new T();
-        std::unique_ptr<Entity> uEntity { e };
-        m_Entities.emplace_back(std::move(uEntity));
-        return *e;
-    }
 };
 
 #endif //GOLFGAME_ECS_H

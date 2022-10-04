@@ -11,7 +11,7 @@ public:
     SDL_Rect collider{};
     std::string tag{};
 
-    explicit ColliderComponent(std::string &tag) {
+    explicit ColliderComponent(const std::string &tag) {
         this->tag = tag;
     }
 

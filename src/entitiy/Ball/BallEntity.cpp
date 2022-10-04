@@ -5,7 +5,7 @@
 
 Vector2D startPos;
 
-BallEntity::BallEntity() : CollidableEntity("ball") {
+BallEntity::BallEntity(void * scene) : CollidableEntity(scene, "ball") {
     AddComponent<SpriteComponent>("../assets/textures/ball.png");
     AddComponent<DirectionComponent>(20).Hide();
     m_Transform = &GetComponent<TransformComponent>();
@@ -71,19 +71,6 @@ void BallEntity::OnMouseMove() {
 void BallEntity::Update() {
     Entity::Update();
 
-    float x = m_Transform->position.x;
-    float y = m_Transform->position.y;
-    float vx = m_Transform->velocity.x;
-    float vy = m_Transform->velocity.y;
-
-    if (x + vx + 32 >= 800 || x + vx <= 0) {
-        m_Transform->velocity.x *= -1;
-    }
-
-    if (y + vy <= 0 || y + 32 + vy >= 640) {
-        m_Transform->velocity.y *= -1;
-    }
-
     m_Transform->velocity *= (1 - m_Friction);
 
     if (m_Transform->velocity.Magnitude() < 0.8) {
@@ -92,5 +79,11 @@ void BallEntity::Update() {
 }
 
 void BallEntity::OnCollision(ColliderComponent &collider) {
-    spdlog::info("collided with {}", collider.tag);
+    if (collider.tag == "wall_horizontal") {
+        m_Transform->velocity.y *= -1;
+        m_Transform->position.y += m_Transform->velocity.y;
+    } else if (collider.tag == "wall_vertical") {
+        m_Transform->velocity.x *= -1;
+        m_Transform->position.x += m_Transform->velocity.x;
+    }
 }

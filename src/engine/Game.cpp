@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "../res/Constant.h"
 
 SDL_Renderer *Game::renderer = nullptr;
 
@@ -32,7 +33,7 @@ void Game::Init(const char *title, int x, int y, int width, int height, bool ful
     spdlog::info("Game initialised");
 
     // supposed to make things look good
-//    SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" );
+    SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" );
 }
 
 void Game::HandleEvents() {
@@ -50,7 +51,7 @@ void Game::HandleEvents() {
 }
 
 void Game::Render() {
-    static SDL_Rect rect{0, 0, 800, 640};
+    static SDL_Rect rect{0, 0, Constant::SCREEN_WIDTH, Constant::SCREEN_HEIGHT};
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
@@ -68,6 +69,7 @@ void Game::Render() {
             m_AnimatingSceneLoad = false;
         }
     }
+
     SDL_RenderPresent(renderer);
 }
 
@@ -97,9 +99,6 @@ void Game::LoadScene(Scene *scene) {
     PresentScene();
 }
 
-Game::Game() {
-    m_AnimationMeta.r = 0;
-    m_AnimationMeta.g = 0;
-    m_AnimationMeta.b = 0;
-    m_AnimationMeta.a = 255;
+void Game::SetWindowTitle(const char *title) {
+    SDL_SetWindowTitle(window, title);
 }

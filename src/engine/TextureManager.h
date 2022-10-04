@@ -1,7 +1,3 @@
-//
-// Created by srijan on 10/2/22.
-//
-
 #ifndef GOLFGAME_TEXTUREMANAGER_H
 #define GOLFGAME_TEXTUREMANAGER_H
 

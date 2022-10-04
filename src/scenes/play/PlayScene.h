@@ -10,7 +10,6 @@ public:
     void Draw() override;
     void Update() override;
     void HandleEvent(SDL_Event &event) override;
-
 };
 
 

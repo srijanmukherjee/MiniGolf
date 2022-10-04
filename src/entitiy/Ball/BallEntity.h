@@ -13,7 +13,7 @@
 
 class BallEntity : public CollidableEntity {
 public:
-    BallEntity();
+    BallEntity(void * scene);
 
     void OnMouseMove();
     void OnMouseDown();

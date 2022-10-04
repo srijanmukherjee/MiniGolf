@@ -5,15 +5,10 @@
 #include "../../engine/ECS/ECS.h"
 #include "../../engine/components/Collider/ColliderComponent.h"
 
-
 class CollidableEntity : public Entity {
 public:
-    CollidableEntity() : CollidableEntity("collider") { }
-
-    explicit CollidableEntity(std::string tag) {
-        AddComponent<ColliderComponent>(tag);
-
-    }
+    explicit CollidableEntity(void * scene) : CollidableEntity(scene, "collider") { }
+    CollidableEntity(void * scene, const std::string& tag);
 
     virtual void OnCollision(ColliderComponent &collider) = 0;
 };

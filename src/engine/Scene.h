@@ -1,7 +1,7 @@
 #ifndef GOLFGAME_SCENE_H
 #define GOLFGAME_SCENE_H
 
-#include "ECS/ECS.h"
+#include "ECS/Manager.h"
 #include "components/Collider/CollisionManager.h"
 
 #include <SDL2/SDL.h>
@@ -15,6 +15,8 @@ public:
     virtual void Draw();
     virtual void HandleEvent(SDL_Event &event);
     virtual void Init() { };
+
+    CollisionManager& GetCollisionManager() { return m_CollisionManager; }
 
 protected:
     Manager m_Manager;
