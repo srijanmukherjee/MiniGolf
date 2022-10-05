@@ -24,7 +24,7 @@ public:
 
 private:
     const int MAX_STRETCH = 95000;
-    const int MAX_SPEED = 2000;
+    const int MAX_SPEED = 1500;
 
 private:
     TransformComponent *m_Transform;

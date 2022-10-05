@@ -97,7 +97,7 @@ void BallEntity::OnCollision(ColliderComponent &collider, float deltaTime) {
         Vector2D pos = collider.transform->position;
         int w = collider.transform->width;
         int h = collider.transform->height;
-        if ((pos.x >= pos.x && pos.x <= pos.x + w) ||
+        if ((m_Transform->position.x >= pos.x && m_Transform->position.x <= pos.x + w) ||
             ((m_Transform->position.x + m_Transform->width >= pos.x && m_Transform->position.x + m_Transform->width <= pos.x + w))) {
             m_Transform->velocity.y *= -1;
             m_Transform->position.y += m_Transform->velocity.y * deltaTime;
