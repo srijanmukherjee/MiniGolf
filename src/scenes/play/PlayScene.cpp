@@ -2,11 +2,11 @@
 #include "../../GolfTileMap.h"
 #include "../../res/Constant.h"
 
-#include "../../entitiy/Ball/BallEntity.h"
-#include "../../entitiy/Wall/WallEntity.h"
-#include "../../entitiy/Obstacle/ObstacleSmall.h"
-#include "../../entitiy/Obstacle/ObstacleBig.h"
-#include "../../entitiy/Goal/GoalEntity.h"
+#include "../../entity/Ball/BallEntity.h"
+#include "../../entity/Wall/WallEntity.h"
+#include "../../entity/Obstacle/ObstacleSmall.h"
+#include "../../entity/Obstacle/ObstacleBig.h"
+#include "../../entity/Goal/GoalEntity.h"
 
 BallEntity *ballEntity;
 GolfTileMap *tileMap;

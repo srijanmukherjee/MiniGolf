@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "../../ECS/ECS.h"
-#include "../../../entitiy/CollidableEntity/CollidableEntity.h"
+#include "../../../entity/CollidableEntity/CollidableEntity.h"
 
 #include "Collision.h"
 

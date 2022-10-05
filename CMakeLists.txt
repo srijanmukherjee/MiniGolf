@@ -30,19 +30,19 @@ add_executable(GolfGame
         src/engine/ECS/ECS.h
         src/engine/components/TransformComponent.h
         src/engine/components/SpriteComponent.h
-        src/entitiy/Ball/BallEntity.cpp
-        src/entitiy/Ball/BallEntity.h
-        src/entitiy/Ball/DirectionComponent.h
+        src/entity/Ball/BallEntity.cpp
+        src/entity/Ball/BallEntity.h
+        src/entity/Ball/DirectionComponent.h
         src/engine/components/Collider/ColliderComponent.h
         src/engine/components/Collider/Collision.cpp
         src/engine/components/Collider/Collision.h
-        src/entitiy/CollidableEntity/CollidableEntity.h
+        src/entity/CollidableEntity/CollidableEntity.h
         src/engine/components/Collider/CollisionManager.h
         src/engine/Scene.cpp
         src/engine/Scene.h
         src/scenes/play/PlayScene.cpp
         src/scenes/play/PlayScene.h
-        src/entitiy/Wall/WallEntity.cpp src/entitiy/Wall/WallEntity.h src/engine/ECS/Manager.h src/entitiy/CollidableEntity/CollidableEntity.cpp src/entitiy/Obstacle/Obstacle.cpp src/entitiy/Obstacle/Obstacle.h src/entitiy/Obstacle/ObstacleSmall.h src/entitiy/Obstacle/ObstacleBig.h src/entitiy/Ball/PowerBarComponent.h src/entitiy/Goal/GoalEntity.cpp src/entitiy/Goal/GoalEntity.h)
+        src/entity/Wall/WallEntity.cpp src/entity/Wall/WallEntity.h src/engine/ECS/Manager.h src/entity/CollidableEntity/CollidableEntity.cpp src/entity/Obstacle/Obstacle.cpp src/entity/Obstacle/Obstacle.h src/entity/Obstacle/ObstacleSmall.h src/entity/Obstacle/ObstacleBig.h src/entity/Ball/PowerBarComponent.h src/entity/Goal/GoalEntity.cpp src/entity/Goal/GoalEntity.h)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
