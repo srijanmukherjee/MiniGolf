@@ -26,9 +26,11 @@ private:
     const int MAX_STRETCH = 95000;
     const int MAX_SPEED = 2000;
 
+private:
     TransformComponent *m_Transform;
     bool m_IsHolding = false;
     float m_Friction = 0.992;
+    float m_LaunchPower = 0;
 };
 
 

@@ -1,6 +1,7 @@
 #include "BallEntity.h"
 #include "../../math/Math.h"
 #include "DirectionComponent.h"
+#include "PowerBarComponent.h"
 
 Vector2D startPos;
 
@@ -11,12 +12,13 @@ BallEntity::BallEntity(void * scene) : CollidableEntity(scene, "ball") {
     m_Transform->width = 16;
     m_Transform->height = 16;
     AddComponent<SpriteComponent>("../assets/textures/ball_2.png");
-    AddComponent<DirectionComponent>(25).Hide();
+    AddComponent<DirectionComponent>(10).Hide();
+    AddComponent<PowerBarComponent>(scene, MAX_SPEED).Hide();
 }
 
 void BallEntity::OnMouseDown() {
     // can't shoot the ball when it's moving
-    if (m_Transform->velocity.Magnitude2() != 0) return;
+    if (m_Transform->velocity.Magnitude() >= 15) return;
 
     int mx, my;
     Uint32 buttons = SDL_GetMouseState(&mx, &my);
@@ -36,24 +38,11 @@ void BallEntity::OnMouseUp() {
     SDL_GetMouseState(&mx, &my);
     GameMath::Vector2D mousePos{mx, my};
 
-    if (startPos == mousePos) {
-        m_IsHolding = false;
-        GetComponent<DirectionComponent>().Hide();
-        return;
-    }
-
-    // magnitude of velocity
-    double dist = mousePos.dist2(startPos);
-    dist = std::clamp<double>(dist, 0, MAX_STRETCH);
-
-    auto launchPower = (float) GameMath::Map(dist, 0, MAX_STRETCH, 0, MAX_SPEED);
-
-    // direction of velocity
-    GameMath::Vector2D newVelocity = (startPos - mousePos).UnitVector() * launchPower;
-    m_Transform->velocity.x = newVelocity.x;
-    m_Transform->velocity.y = newVelocity.y;
+    m_Transform->velocity = (startPos - mousePos).UnitVector() * m_LaunchPower;
     m_IsHolding = false;
+
     GetComponent<DirectionComponent>().Hide();
+    GetComponent<PowerBarComponent>().Hide();
 }
 
 void BallEntity::OnMouseMove() {
@@ -64,8 +53,15 @@ void BallEntity::OnMouseMove() {
         SDL_GetMouseState(&mx, &my);
         GameMath::Vector2D mousePos{mx, my};
 
+        double dist = mousePos.dist2(startPos);
+        dist = std::clamp<double>(dist, 0, MAX_STRETCH);
+        m_LaunchPower = (float) GameMath::Map(dist, 0, MAX_STRETCH, 0, MAX_SPEED);
+
         GetComponent<DirectionComponent>().PointTowards(startPos - mousePos, m_Transform->position + Vector2D(8, 8));
         GetComponent<DirectionComponent>().Show();
+        GetComponent<PowerBarComponent>().SetPosition(m_Transform->position + Vector2D(16 + 24, -16));
+        GetComponent<PowerBarComponent>().SetValue((int) m_LaunchPower);
+        GetComponent<PowerBarComponent>().Show();
     }
 }
 
