@@ -2,6 +2,7 @@
 #include "../../math/Math.h"
 #include "DirectionComponent.h"
 #include "PowerBarComponent.h"
+#include "../../res/Constant.h"
 
 Vector2D startPos;
 
@@ -66,17 +67,26 @@ void BallEntity::OnMouseMove() {
 }
 
 void BallEntity::Update(float deltaTime) {
+    int w = m_Transform->width * m_Transform->scale;
+    int h = m_Transform->height * m_Transform->scale;
     Entity::Update(deltaTime);
+
+    // make sure ball stays within bounds
+    if (m_Transform->position.x + w > Constant::SCREEN_WIDTH) m_Transform->position.x = Constant::SCREEN_WIDTH - w - 1;
+    if (m_Transform->position.x < 0) m_Transform->position.x = 1;
+    if (m_Transform->position.y + h > Constant::SCREEN_WIDTH) m_Transform->position.y = Constant::SCREEN_HEIGHT - h - 1;
+    if (m_Transform->position.y < 0) m_Transform->position.y = 1;
 
     float mag = m_Transform->velocity.Magnitude();
     m_Transform->velocity = m_Transform->velocity.UnitVector() * mag * ( 1 - m_Friction * deltaTime );
 
-    if (m_Transform->velocity.Magnitude() < 15) {
+    if (m_Transform->velocity.Magnitude() < 20) {
         m_Transform->velocity *= 0;
     }
 }
 
 void BallEntity::OnCollision(ColliderComponent &collider, float deltaTime) {
+//    spdlog::info("collision: {}", collider.tag);
     if (collider.tag == "wall_horizontal") {
         m_Transform->velocity.y *= -1;
         m_Transform->position.y += m_Transform->velocity.y * deltaTime;

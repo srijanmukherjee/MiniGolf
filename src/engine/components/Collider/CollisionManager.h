@@ -6,6 +6,8 @@
 #include "../../../entitiy/CollidableEntity/CollidableEntity.h"
 #include "Collision.h"
 
+#include <spdlog/spdlog.h>
+
 class CollisionManager {
 public:
     void ListenForCollision(CollidableEntity *entity) {
