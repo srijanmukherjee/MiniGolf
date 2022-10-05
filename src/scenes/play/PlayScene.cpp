@@ -5,6 +5,7 @@
 #include "../../res/Constant.h"
 #include "../../entitiy/Obstacle/ObstacleSmall.h"
 #include "../../entitiy/Obstacle/ObstacleBig.h"
+#include "../../entitiy/Goal/GoalEntity.h"
 
 BallEntity *ballEntity;
 GolfTileMap *tileMap;
@@ -22,6 +23,7 @@ void PlayScene::Init() {
     m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, Constant::SCREEN_HEIGHT, Constant::SCREEN_WIDTH, 1 });
     m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ -1, 0, 1, Constant::SCREEN_HEIGHT });
     m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ Constant::SCREEN_WIDTH, 0, 1, Constant::SCREEN_HEIGHT });
+    &m_Manager.AddEntity<GoalEntity>(this, 10, 10);
     ballEntity = &m_Manager.AddEntity<BallEntity>(this);
     tileMap = new GolfTileMap();
     m_Manager.Update(0);

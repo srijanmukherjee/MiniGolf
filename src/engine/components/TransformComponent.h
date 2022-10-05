@@ -15,14 +15,14 @@ public:
     float rotation{};
     int width = 32;
     int height = 32;
-    int scale = 1;
+    float scale = 1;
 
     TransformComponent() = default;
     TransformComponent(float x, float y) {
         position.x = x;
         position.y = y;
     }
-    TransformComponent(float x, float y, int w, int h, int sc) {
+    TransformComponent(float x, float y, int w, int h, float sc) {
         position.x = x;
         position.y = y;
         width = w;

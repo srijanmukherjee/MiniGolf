@@ -19,7 +19,7 @@ BallEntity::BallEntity(void * scene) : CollidableEntity(scene, "ball") {
 
 void BallEntity::OnMouseDown() {
     // can't shoot the ball when it's moving
-    if (m_Transform->velocity.Magnitude() >= 15) return;
+    if (m_Transform->velocity.Magnitude() >= 15 || m_HasWon) return;
 
     int mx, my;
     Uint32 buttons = SDL_GetMouseState(&mx, &my);
@@ -32,7 +32,7 @@ void BallEntity::OnMouseDown() {
 }
 
 void BallEntity::OnMouseUp() {
-    if (!m_IsHolding) return;
+    if (!m_IsHolding || m_HasWon) return;
 
     SDL_PumpEvents();
     int mx, my;
@@ -47,6 +47,7 @@ void BallEntity::OnMouseUp() {
 }
 
 void BallEntity::OnMouseMove() {
+    if (m_HasWon) return;
 
     if (m_IsHolding) {
         SDL_PumpEvents();
@@ -67,11 +68,11 @@ void BallEntity::OnMouseMove() {
 }
 
 void BallEntity::Update(float deltaTime) {
-    int w = m_Transform->width * m_Transform->scale;
-    int h = m_Transform->height * m_Transform->scale;
     Entity::Update(deltaTime);
 
     // make sure ball stays within bounds
+    int w = m_Transform->width * m_Transform->scale;
+    int h = m_Transform->height * m_Transform->scale;
     if (m_Transform->position.x + w > Constant::SCREEN_WIDTH) m_Transform->position.x = Constant::SCREEN_WIDTH - w - 1;
     if (m_Transform->position.x < 0) m_Transform->position.x = 1;
     if (m_Transform->position.y + h > Constant::SCREEN_WIDTH) m_Transform->position.y = Constant::SCREEN_HEIGHT - h - 1;
@@ -82,6 +83,16 @@ void BallEntity::Update(float deltaTime) {
 
     if (m_Transform->velocity.Magnitude() < 20) {
         m_Transform->velocity *= 0;
+    }
+
+    // reduce scale to simulate the ball going inside the goal hole
+    if (m_HasWon && m_Transform->scale > 0) {
+        m_Transform->scale -= 0.02; // 0.98
+        m_Transform->position += Vector2D(
+                m_Transform->width * 0.02f / 2,
+                m_Transform->height * 0.02f / 2);
+        if (m_Transform->scale <= 0)
+            m_Transform->scale = 0;
     }
 }
 
@@ -106,6 +117,15 @@ void BallEntity::OnCollision(ColliderComponent &collider, float deltaTime) {
             (m_Transform->position.y + m_Transform->height >= pos.y && m_Transform->position.y + m_Transform->height <= pos.y + h)) {
             m_Transform->velocity.x *= -1;
             m_Transform->position.x += m_Transform->velocity.x * deltaTime;
+        }
+    } else if (collider.tag == "goal" && !m_HasWon) {
+        Vector2D goalCenter = collider.transform->position + Vector2D(9, 9);
+        Vector2D ballCenter = m_Transform->position + Vector2D(8, 8);
+
+        if ((ballCenter - goalCenter).Magnitude() < 10) {
+            m_HasWon = true;
+            m_Transform->velocity *= 0;
+            m_Transform->position = goalCenter - Vector2D(8, 8);
         }
     }
 }

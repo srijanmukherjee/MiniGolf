@@ -56,11 +56,6 @@ public:
             if (delta < frameDelay) {
                 SDL_Delay(frameDelay - delta);
             }
-
-            // display fps (TODO: display only for debug build using macro)
-            std::string titleWithFPS = title;
-            titleWithFPS += " | delta: " + std::to_string(static_cast<float>(1000/delta));
-            game->SetWindowTitle(titleWithFPS.c_str());
         }
 
         delete game;

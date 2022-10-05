@@ -30,6 +30,8 @@ public:
     void Update(float deltaTime) override {
         m_DestRect.x = (int) m_Transform->position.x;
         m_DestRect.y = (int) m_Transform->position.y;
+        m_DestRect.w = m_Transform->width * m_Transform->scale;
+        m_DestRect.h = m_Transform->height * m_Transform->scale;
     }
 
     void Draw() override {

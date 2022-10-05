@@ -29,7 +29,8 @@ private:
 private:
     TransformComponent *m_Transform;
     bool m_IsHolding = false;
-    float m_Friction = 0.992;
+    bool m_HasWon = false;
+    float m_Friction = 0.99;
     float m_LaunchPower = 0;
 };
 
