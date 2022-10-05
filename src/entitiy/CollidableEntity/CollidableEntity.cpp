@@ -1,4 +1,3 @@
-#include <spdlog/spdlog.h>
 #include "CollidableEntity.h"
 #include "../../engine/Scene.h"
 

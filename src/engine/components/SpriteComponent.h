@@ -1,10 +1,11 @@
 #ifndef GOLFGAME_SPRITECOMPONENT_H
 #define GOLFGAME_SPRITECOMPONENT_H
 
+#include <SDL2/SDL.h>
+
 #include "../ECS/ECS.h"
 #include "TransformComponent.h"
 #include "../TextureManager.h"
-#include <SDL2/SDL.h>
 
 class SpriteComponent : public Component {
 public:

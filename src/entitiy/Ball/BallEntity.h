@@ -1,7 +1,3 @@
-//
-// Created by srijan on 10/3/22.
-//
-
 #ifndef GOLFGAME_BALLENTITY_H
 #define GOLFGAME_BALLENTITY_H
 
@@ -23,8 +19,9 @@ public:
     void OnCollision(ColliderComponent &collider, float deltaTime) override;
 
 private:
-    const int MAX_STRETCH = 95000;
+    const int MAX_STRETCH = 90000;
     const int MAX_SPEED = 1500;
+    const int MIN_SPEED = 100;
 
 private:
     TransformComponent *m_Transform;
@@ -33,6 +30,5 @@ private:
     float m_Friction = 0.99;
     float m_LaunchPower = 0;
 };
-
 
 #endif //GOLFGAME_BALLENTITY_H

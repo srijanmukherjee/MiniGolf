@@ -1,8 +1,9 @@
 #include "PlayScene.h"
-#include "../../entitiy/Ball/BallEntity.h"
 #include "../../GolfTileMap.h"
-#include "../../entitiy/Wall/WallEntity.h"
 #include "../../res/Constant.h"
+
+#include "../../entitiy/Ball/BallEntity.h"
+#include "../../entitiy/Wall/WallEntity.h"
 #include "../../entitiy/Obstacle/ObstacleSmall.h"
 #include "../../entitiy/Obstacle/ObstacleBig.h"
 #include "../../entitiy/Goal/GoalEntity.h"
@@ -28,7 +29,6 @@ void PlayScene::Init() {
     tileMap = new GolfTileMap();
     m_Manager.Update(0);
     m_CollisionManager.StartDetectingCollision();
-
 }
 
 void PlayScene::Draw() {

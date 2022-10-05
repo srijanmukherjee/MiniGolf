@@ -9,7 +9,7 @@ public:
     explicit ObstacleSmall(void * scene) : Obstacle(scene) {
         auto &transform = GetComponent<TransformComponent>();
         transform.width = transform.height = 32;
-        AddComponent<SpriteComponent>("../assets/textures/obstacle_32.png");
+        AddComponent<SpriteComponent>("obstacle_32.png");
     }
 };
 

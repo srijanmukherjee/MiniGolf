@@ -12,7 +12,7 @@ public:
     explicit PowerBarComponent(void *scene, int maxValue)
         : Entity(scene), m_MaxValue(maxValue), m_Rect({ 0, 0, 0, 0 }) {
         AddComponent<TransformComponent>(0, 0, WIDTH, HEIGHT, 1);
-        AddComponent<SpriteComponent>("../assets/textures/powerbar_bg.png");
+        AddComponent<SpriteComponent>("powerbar_bg.png");
         m_Rect.w = WIDTH - 2 * PADDING;
     }
 

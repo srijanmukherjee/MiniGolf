@@ -1,12 +1,13 @@
 #ifndef GOLFGAME_COLLISIONMANAGER_H
 #define GOLFGAME_COLLISIONMANAGER_H
 
+#include <spdlog/spdlog.h>
 #include <vector>
+
 #include "../../ECS/ECS.h"
 #include "../../../entitiy/CollidableEntity/CollidableEntity.h"
-#include "Collision.h"
 
-#include <spdlog/spdlog.h>
+#include "Collision.h"
 
 class CollisionManager {
 public:

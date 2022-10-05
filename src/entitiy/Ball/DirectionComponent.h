@@ -14,7 +14,7 @@ public:
         m_Transform = &AddComponent<TransformComponent>();
         m_Transform->width = 16;
         m_Transform->height = 16;
-        m_Sprite = &AddComponent<SpriteComponent>("../assets/textures/arrow.png");
+        m_Sprite = &AddComponent<SpriteComponent>("arrow.png");
     }
 
     void Update(float deltaTime) override {

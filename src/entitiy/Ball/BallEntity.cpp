@@ -1,8 +1,10 @@
 #include "BallEntity.h"
+
+#include "../../res/Constant.h"
 #include "../../math/Math.h"
+
 #include "DirectionComponent.h"
 #include "PowerBarComponent.h"
-#include "../../res/Constant.h"
 
 Vector2D startPos;
 
@@ -12,7 +14,7 @@ BallEntity::BallEntity(void * scene) : CollidableEntity(scene, "ball") {
     m_Transform->position.y = 150;
     m_Transform->width = 16;
     m_Transform->height = 16;
-    AddComponent<SpriteComponent>("../assets/textures/ball_2.png");
+    AddComponent<SpriteComponent>("ball_2.png");
     AddComponent<DirectionComponent>(10).Hide();
     AddComponent<PowerBarComponent>(scene, MAX_SPEED).Hide();
 }
@@ -57,7 +59,7 @@ void BallEntity::OnMouseMove() {
 
         double dist = mousePos.dist2(startPos);
         dist = std::clamp<double>(dist, 0, MAX_STRETCH);
-        m_LaunchPower = (float) GameMath::Map(dist, 0, MAX_STRETCH, 0, MAX_SPEED);
+        m_LaunchPower = (float) GameMath::Map(dist, 0, MAX_STRETCH, 0, MAX_SPEED - MIN_SPEED) + MIN_SPEED;
 
         GetComponent<DirectionComponent>().PointTowards(startPos - mousePos, m_Transform->position + Vector2D(8, 8));
         GetComponent<DirectionComponent>().Show();

@@ -4,7 +4,7 @@
 GoalEntity::GoalEntity(void *scene) : CollidableEntity(scene, "goal") {
     m_Transform = &GetComponent<TransformComponent>();
     m_Transform->width = m_Transform->height = 18;
-    AddComponent<SpriteComponent>("../assets/textures/goal.png");
+    AddComponent<SpriteComponent>("goal.png");
 }
 
 GoalEntity::GoalEntity(void *scene, int row, int col) : GoalEntity(scene) {

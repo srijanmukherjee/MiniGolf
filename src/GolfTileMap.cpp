@@ -25,8 +25,8 @@ std::vector<std::vector<int>> levelOne = {
 
 GolfTileMap::GolfTileMap() {
     LoadTextures({
-         "../assets/textures/Group 1.png",
-         "../assets/textures/Group 2.png",
+         "Group 1.png",
+         "Group 2.png",
     }, { 0, 0, 32, 32 });
     LoadMap(levelOne, 32);
 }
