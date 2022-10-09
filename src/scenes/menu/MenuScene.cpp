@@ -37,7 +37,6 @@ void MenuScene::Init() {
     textureHint = SDL_CreateTextureFromSurface(Game::renderer, surfaceHint);
     TTF_SizeText(FONT_HINT, "Click to start playing", &w, &h);
     rectHint = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 + 90, w, h };
-
 }
 
 void MenuScene::Update(float deltaTime) {

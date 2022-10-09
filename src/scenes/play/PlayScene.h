@@ -3,6 +3,7 @@
 
 
 #include "../../engine/Scene.h"
+#include "../../res/Levels.h"
 
 class PlayScene : public Scene {
 public:
@@ -10,6 +11,10 @@ public:
     void Draw() override;
     void Update(float deltaTime) override;
     void HandleEvent(SDL_Event &event) override;
+
+    void LoadLevel(const LevelDescriptor& levelDescriptor);
+
+    void DisplayGridCoords();
 };
 
 

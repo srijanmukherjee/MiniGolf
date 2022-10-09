@@ -7,7 +7,7 @@
 class GolfTileMap : public TileMap {
 public:
     GolfTileMap();
-//    void LoadLevel(const char *level);
+//    void LoadLevel(const char *Level);
 };
 
 

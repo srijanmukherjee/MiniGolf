@@ -21,6 +21,8 @@ public:
 protected:
     Manager m_Manager;
     CollisionManager m_CollisionManager;
+
+    friend class Entity;
 };
 
 
