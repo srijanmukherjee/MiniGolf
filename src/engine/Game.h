@@ -18,6 +18,10 @@ struct SceneLoadAnimationMeta {
 
 class Game {
 public:
+    Game() {
+        delete instance;
+        instance = this;
+    }
     virtual ~Game();
     virtual void Init(const char *title, int x, int y, int width, int height, bool fullscreen);
 
@@ -27,10 +31,12 @@ public:
     void Clean();
 
     void SetWindowTitle(const char * title);
+    void LoadScene(Scene *scene);
 
     [[nodiscard]] bool IsRunning() const { return m_Running; }
 
     static SDL_Renderer* renderer;
+    static Game& GetInstance() { return *instance; }
 
     template <class T>
     static void Start(int targetFPS, const char *title, int x, int y, int width, int height, bool fullscreen) {
@@ -72,10 +78,10 @@ protected:
     SDL_Window *window = nullptr;
     Scene *currentScene = nullptr;
 
+    static Game * instance;
+
     virtual void RenderGame() { };
     virtual void ProcessEvent(SDL_Event& event) { };
-
-    void LoadScene(Scene *scene);
 };
 
 

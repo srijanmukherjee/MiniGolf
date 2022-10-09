@@ -1,7 +1,9 @@
+#include <SDL2/SDL_ttf.h>
 #include "Game.h"
 #include "../res/Constant.h"
 
 SDL_Renderer *Game::renderer = nullptr;
+Game * Game::instance = nullptr;
 
 Game::~Game() {
     Clean();
@@ -10,6 +12,11 @@ Game::~Game() {
 void Game::Init(const char *title, int x, int y, int width, int height, bool fullscreen) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         spdlog::error("Subsystem initialisation failed");
+        return;
+    }
+
+    if (TTF_Init() < 0) {
+        spdlog::error("couldn't initialise font library");
         return;
     }
 
@@ -33,7 +40,7 @@ void Game::Init(const char *title, int x, int y, int width, int height, bool ful
     spdlog::info("Game initialised");
 
     // supposed to make things look good
-    SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" );
+//    SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" );
 }
 
 void Game::HandleEvents() {

@@ -42,12 +42,12 @@ add_executable(GolfGame
         src/engine/Scene.h
         src/scenes/play/PlayScene.cpp
         src/scenes/play/PlayScene.h
-        src/entity/Wall/WallEntity.cpp src/entity/Wall/WallEntity.h src/engine/ECS/Manager.h src/entity/CollidableEntity/CollidableEntity.cpp src/entity/Obstacle/Obstacle.cpp src/entity/Obstacle/Obstacle.h src/entity/Obstacle/ObstacleSmall.h src/entity/Obstacle/ObstacleBig.h src/entity/Ball/PowerBarComponent.h src/entity/Goal/GoalEntity.cpp src/entity/Goal/GoalEntity.h)
+        src/entity/Wall/WallEntity.cpp src/entity/Wall/WallEntity.h src/engine/ECS/Manager.h src/entity/CollidableEntity/CollidableEntity.cpp src/entity/Obstacle/Obstacle.cpp src/entity/Obstacle/Obstacle.h src/entity/Obstacle/ObstacleSmall.h src/entity/Obstacle/ObstacleBig.h src/entity/Ball/PowerBarComponent.h src/entity/Goal/GoalEntity.cpp src/entity/Goal/GoalEntity.h src/scenes/menu/MenuScene.cpp src/scenes/menu/MenuScene.h)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 target_link_libraries(GolfGame
-        PUBLIC SDL2main SDL2 SDL2_image
+        PUBLIC SDL2main SDL2 SDL2_image SDL2_ttf
         PRIVATE spdlog::spdlog)
 
 

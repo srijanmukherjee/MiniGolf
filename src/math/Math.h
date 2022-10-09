@@ -1,7 +1,3 @@
-//
-// Created by srijan on 10/2/22.
-//
-
 #ifndef GOLFGAME_MATH_H
 #define GOLFGAME_MATH_H
 
