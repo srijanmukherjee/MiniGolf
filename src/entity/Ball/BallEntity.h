@@ -18,6 +18,8 @@ public:
     void Update(float deltaTime) override;
     void OnCollision(ColliderComponent &collider, float deltaTime) override;
 
+    [[nodiscard]] bool IsInsideGoal() const { return m_InsideGoal; }
+
 private:
     const int MAX_STRETCH = 90000;
     const int MAX_SPEED = 1500;
@@ -27,6 +29,7 @@ private:
     TransformComponent *m_Transform;
     bool m_IsHolding = false;
     bool m_HasWon = false;
+    bool m_InsideGoal = false;
     float m_Friction = 0.99;
     float m_LaunchPower = 0;
 };

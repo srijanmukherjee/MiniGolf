@@ -91,15 +91,16 @@ void BallEntity::Update(float deltaTime) {
     if (m_HasWon && m_Transform->scale > 0) {
         m_Transform->scale -= 0.02; // 0.98
         m_Transform->position += Vector2D(
-                m_Transform->width * 0.02f / 2,
-                m_Transform->height * 0.02f / 2);
-        if (m_Transform->scale <= 0)
+                static_cast<float>(m_Transform->width) * 0.02f / 2,
+                static_cast<float>(m_Transform->height) * 0.02f / 2);
+        if (m_Transform->scale <= 0) {
             m_Transform->scale = 0;
+            m_InsideGoal = true;
+        }
     }
 }
 
 void BallEntity::OnCollision(ColliderComponent &collider, float deltaTime) {
-//    spdlog::info("collision: {}", collider.tag);
     if (collider.tag == "wall_horizontal") {
         m_Transform->velocity.y *= -1;
         m_Transform->position.y += m_Transform->velocity.y * deltaTime;

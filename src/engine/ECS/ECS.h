@@ -96,7 +96,7 @@ public:
         return *static_cast<T*>(m_Components[GetComponentTypeID<T>()]);
     }
 
-    ~Entity() {
+    virtual ~Entity() {
         for (auto c : m_Components) {
             delete c;
         }

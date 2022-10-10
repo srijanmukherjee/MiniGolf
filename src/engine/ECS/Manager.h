@@ -32,6 +32,14 @@ public:
                 std::end(m_Entities));
     }
 
+    void Reset() {
+        for (auto & e : m_Entities) {
+            e->Destroy();
+        }
+
+//        Refresh();
+    }
+
     template <typename... TArgs>
     Entity& AddEntity(TArgs... args) {
         auto *e = new Entity(std::forward<TArgs>(args)...);
