@@ -8,6 +8,7 @@ namespace Constant {
     const int FPS = 60;
 
     const std::string ASSETS_DIR = "assets";
+    const std::string INFO_FILE  = "info.dat";
 }
 
 #endif //GOLFGAME_CONSTANT_H
