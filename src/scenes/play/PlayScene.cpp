@@ -12,7 +12,7 @@ GolfTileMap *tileMap;
 
 void PlayScene::Init() {
     Scene::Init();
-    LoadLevel(levels[1]);
+    LoadLevel(levels[3]);
     tileMap = new GolfTileMap();
     m_Manager.Update(0);
     m_CollisionManager.StartDetectingCollision();
