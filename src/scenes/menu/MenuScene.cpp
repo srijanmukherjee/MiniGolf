@@ -2,6 +2,7 @@
 #include "../../GolfTileMap.h"
 #include "../../res/Constant.h"
 #include "../play/PlayScene.h"
+#include "../level_creator/LevelCreatorScene.h"
 #include "SDL2/SDL_ttf.h"
 
 GolfTileMap *tileMap2;
@@ -48,7 +49,7 @@ void MenuScene::HandleEvent(SDL_Event &event) {
 
     switch(event.type) {
         case SDL_MOUSEBUTTONUP:
-            Game::GetInstance().LoadScene(new PlayScene());
+            ChangeScene();
             break;
     }
 }
@@ -73,4 +74,9 @@ MenuScene::~MenuScene() {
     SDL_DestroyTexture(textureTitle);
     SDL_FreeSurface(surfaceHint);
     SDL_DestroyTexture(textureHint);
+}
+
+void MenuScene::ChangeScene() {
+    Game::GetInstance().LoadScene(new PlayScene());
+//    Game::GetInstance().LoadScene(new LevelCreatorScene());
 }

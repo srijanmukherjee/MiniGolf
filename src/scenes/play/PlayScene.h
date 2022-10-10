@@ -13,8 +13,6 @@ public:
     void HandleEvent(SDL_Event &event) override;
 
     void LoadLevel(const LevelDescriptor& levelDescriptor);
-
-    void DisplayGridCoords();
 };
 
 

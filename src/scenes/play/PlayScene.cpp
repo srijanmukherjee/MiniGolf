@@ -1,6 +1,5 @@
 #include "PlayScene.h"
 #include "../../GolfTileMap.h"
-#include "../../res/Constant.h"
 
 #include "../../entity/Ball/BallEntity.h"
 #include "../../entity/Wall/WallEntity.h"
@@ -13,7 +12,7 @@ GolfTileMap *tileMap;
 
 void PlayScene::Init() {
     Scene::Init();
-    LoadLevel(levels[0]);
+    LoadLevel(levels[1]);
     tileMap = new GolfTileMap();
     m_Manager.Update(0);
     m_CollisionManager.StartDetectingCollision();
@@ -37,7 +36,6 @@ void PlayScene::HandleEvent(SDL_Event &event) {
             break;
         case SDL_MOUSEBUTTONUP:
             ballEntity->OnMouseUp();
-            DisplayGridCoords();
             break;
         case SDL_MOUSEMOTION:
             ballEntity->OnMouseMove();
@@ -67,10 +65,4 @@ void PlayScene::LoadLevel(const LevelDescriptor& levelDescriptor) {
     int w = ballEntity->GetComponent<TransformComponent>().width;
     ballEntity->GetComponent<TransformComponent>().position = Vector2D(
             levelDescriptor.ballPos.first * 32 + w / 2,levelDescriptor.ballPos.second * 32 + w / 2);
-}
-
-void PlayScene::DisplayGridCoords() {
-    int x, y;
-    SDL_GetMouseState(&x, &y);
-    spdlog::info("mouse [{}, {}]", static_cast<int>(x / 32), static_cast<int>(y / 32));
 }
