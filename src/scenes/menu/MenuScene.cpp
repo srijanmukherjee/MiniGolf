@@ -2,6 +2,7 @@
 #include "../../GolfTileMap.h"
 #include "../../res/Constant.h"
 #include "../play/PlayScene.h"
+#include "../level_creator/LevelCreatorScene.h"
 #include "SDL2/SDL_ttf.h"
 
 GolfTileMap *tileMap2;
@@ -37,7 +38,6 @@ void MenuScene::Init() {
     textureHint = SDL_CreateTextureFromSurface(Game::renderer, surfaceHint);
     TTF_SizeText(FONT_HINT, "Click to start playing", &w, &h);
     rectHint = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 + 90, w, h };
-
 }
 
 void MenuScene::Update(float deltaTime) {
@@ -49,7 +49,7 @@ void MenuScene::HandleEvent(SDL_Event &event) {
 
     switch(event.type) {
         case SDL_MOUSEBUTTONUP:
-            Game::GetInstance().LoadScene(new PlayScene());
+            ChangeScene();
             break;
     }
 }
@@ -74,4 +74,9 @@ MenuScene::~MenuScene() {
     SDL_DestroyTexture(textureTitle);
     SDL_FreeSurface(surfaceHint);
     SDL_DestroyTexture(textureHint);
+}
+
+void MenuScene::ChangeScene() {
+    Game::GetInstance().LoadScene(new PlayScene());
+//    Game::GetInstance().LoadScene(new LevelCreatorScene());
 }

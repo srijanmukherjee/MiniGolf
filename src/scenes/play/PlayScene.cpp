@@ -1,6 +1,5 @@
 #include "PlayScene.h"
 #include "../../GolfTileMap.h"
-#include "../../res/Constant.h"
 
 #include "../../entity/Ball/BallEntity.h"
 #include "../../entity/Wall/WallEntity.h"
@@ -13,19 +12,7 @@ GolfTileMap *tileMap;
 
 void PlayScene::Init() {
     Scene::Init();
-    m_Manager.AddEntity<ObstacleSmall>(this).SetPosition(32, 64);
-    m_Manager.AddEntity<ObstacleSmall>(this).SetPosition(64, 64);
-    m_Manager.AddEntity<ObstacleSmall>(this).SetPosition(96, 64);
-    m_Manager.AddEntity<ObstacleBig>(this).SetPosition(96, 196);
-    m_Manager.AddEntity<ObstacleBig>(this).SetPosition(96, 196);
-    m_Manager.AddEntity<ObstacleBig>(this).SetPosition(160, 196);
-    m_Manager.AddEntity<ObstacleBig>(this).SetPosition(224, 196);
-    m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, -1, Constant::SCREEN_WIDTH, 1 });
-    m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, Constant::SCREEN_HEIGHT, Constant::SCREEN_WIDTH, 1 });
-    m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ -1, 0, 1, Constant::SCREEN_HEIGHT });
-    m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ Constant::SCREEN_WIDTH, 0, 1, Constant::SCREEN_HEIGHT });
-    &m_Manager.AddEntity<GoalEntity>(this, 10, 10);
-    ballEntity = &m_Manager.AddEntity<BallEntity>(this);
+    LoadLevel(levels[3]);
     tileMap = new GolfTileMap();
     m_Manager.Update(0);
     m_CollisionManager.StartDetectingCollision();
@@ -55,4 +42,27 @@ void PlayScene::HandleEvent(SDL_Event &event) {
         default:
             break;
     }
+
+}
+
+void PlayScene::LoadLevel(const LevelDescriptor& levelDescriptor) {
+    m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, -1, Constant::SCREEN_WIDTH, 1 });
+    m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, Constant::SCREEN_HEIGHT, Constant::SCREEN_WIDTH, 1 });
+    m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ -1, 0, 1, Constant::SCREEN_HEIGHT });
+    m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ Constant::SCREEN_WIDTH, 0, 1, Constant::SCREEN_HEIGHT });
+
+    for (auto & pos : levelDescriptor.smObstacles) {
+        m_Manager.AddEntity<ObstacleSmall>(this).SetPosition(pos.first * 32, pos.second * 32);
+    }
+
+    for (auto & pos : levelDescriptor.lgObstacles) {
+        m_Manager.AddEntity<ObstacleBig>(this).SetPosition(pos.first * 32, pos.second * 32);
+    }
+
+    m_Manager.AddEntity<GoalEntity>(this, levelDescriptor.goalPos.second, levelDescriptor.goalPos.first);
+    delete ballEntity;
+    ballEntity = &m_Manager.AddEntity<BallEntity>(this);
+    int w = ballEntity->GetComponent<TransformComponent>().width;
+    ballEntity->GetComponent<TransformComponent>().position = Vector2D(
+            levelDescriptor.ballPos.first * 32 + w / 2,levelDescriptor.ballPos.second * 32 + w / 2);
 }
