@@ -1,6 +1,5 @@
 #include <sstream>
 #include "LevelCreatorScene.h"
-#include "../../engine/Game.h"
 #include "../../entity/Obstacle/ObstacleSmall.h"
 #include "../../entity/Obstacle/ObstacleBig.h"
 
