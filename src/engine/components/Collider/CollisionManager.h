@@ -19,6 +19,14 @@ public:
         m_Listening = true;
     }
 
+    void StopDetectingCollision() {
+        m_Listening = false;
+    }
+
+    void Reset() {
+        m_Entities.clear();
+    }
+
     void Update(float deltaTime) {
         if (!m_Listening) return;
 

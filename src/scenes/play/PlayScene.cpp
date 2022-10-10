@@ -10,12 +10,12 @@
 BallEntity *ballEntity;
 GolfTileMap *tileMap;
 
+const int TOTAL_LEVELS = sizeof(levels) / sizeof(LevelDescriptor);
+
 void PlayScene::Init() {
     Scene::Init();
-    LoadLevel(levels[3]);
     tileMap = new GolfTileMap();
-    m_Manager.Update(0);
-    m_CollisionManager.StartDetectingCollision();
+    LoadLevel(levels[m_CurrentLevel]);
 }
 
 void PlayScene::Draw() {
@@ -26,6 +26,11 @@ void PlayScene::Draw() {
 void PlayScene::Update(float deltaTime) {
     tileMap->Update(deltaTime);
     Scene::Update(deltaTime);
+
+    if (ballEntity->IsInsideGoal()) {
+        if (m_CurrentLevel + 1 < TOTAL_LEVELS)
+            LoadLevel(levels[++m_CurrentLevel]);
+    }
 }
 
 void PlayScene::HandleEvent(SDL_Event &event) {
@@ -46,6 +51,10 @@ void PlayScene::HandleEvent(SDL_Event &event) {
 }
 
 void PlayScene::LoadLevel(const LevelDescriptor& levelDescriptor) {
+    m_CollisionManager.StopDetectingCollision();
+    m_Manager.Reset();
+    m_CollisionManager.Reset();
+    m_Manager.Refresh();
     m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, -1, Constant::SCREEN_WIDTH, 1 });
     m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, Constant::SCREEN_HEIGHT, Constant::SCREEN_WIDTH, 1 });
     m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ -1, 0, 1, Constant::SCREEN_HEIGHT });
@@ -60,9 +69,11 @@ void PlayScene::LoadLevel(const LevelDescriptor& levelDescriptor) {
     }
 
     m_Manager.AddEntity<GoalEntity>(this, levelDescriptor.goalPos.second, levelDescriptor.goalPos.first);
-    delete ballEntity;
     ballEntity = &m_Manager.AddEntity<BallEntity>(this);
     int w = ballEntity->GetComponent<TransformComponent>().width;
     ballEntity->GetComponent<TransformComponent>().position = Vector2D(
             levelDescriptor.ballPos.first * 32 + w / 2,levelDescriptor.ballPos.second * 32 + w / 2);
+
+    m_Manager.Update(0);
+    m_CollisionManager.StartDetectingCollision();
 }
