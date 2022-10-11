@@ -121,7 +121,7 @@ void BallEntity::OnCollision(ColliderComponent &collider, float deltaTime) {
             m_Transform->velocity.x *= -1;
             m_Transform->position.x += m_Transform->velocity.x * deltaTime;
         }
-    } else if (collider.tag == "goal" && !m_HasWon) {
+    } else if (collider.tag == "goal" && !m_HasWon && m_Transform->velocity.Magnitude() < MAX_SPEED * 0.8) {
         Vector2D goalCenter = collider.transform->position + Vector2D(9, 9);
         Vector2D ballCenter = m_Transform->position + Vector2D(8, 8);
 
