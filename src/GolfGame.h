@@ -3,7 +3,6 @@
 
 
 #include "engine/Game.h"
-#include "engine/GameObject.h"
 
 class GolfGame : public Game {
 public:

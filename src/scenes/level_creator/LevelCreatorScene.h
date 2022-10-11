@@ -15,7 +15,6 @@ enum GameComponent { OBSTACLE_SM, OBSTACLE_LG, BALL, GOAL };
 class LevelCreatorScene : public Scene {
 public:
     void Init() override;
-    void Draw() override;
     void HandleEvent(SDL_Event &event) override;
 
 private:

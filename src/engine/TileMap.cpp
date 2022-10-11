@@ -1,11 +1,14 @@
 #include "TileMap.h"
 
+TileMap::TileMap(void *scene) : Entity(scene) {
+}
+
 TileMap::~TileMap() {
-    spdlog::info("~TileMap");
+    spdlog::info("cleaning up tile map");
     CleanTextures();
 }
 
-void TileMap::Render() {
+void TileMap::Draw() {
     m_DestRect.x = m_DestRect.y = 0;
 
     for (int row = 0; row < m_TileMap.size(); row++) {
@@ -15,6 +18,8 @@ void TileMap::Render() {
             TextureManager::Draw(m_Textures[m_TileMap[row][col]], m_SrcRect, m_DestRect);
         }
     }
+
+    Entity::Draw();
 }
 
 void TileMap::LoadMap(const std::vector<std::vector<int>> &map, int tileSize) {
@@ -26,7 +31,7 @@ void TileMap::LoadMap(const std::vector<std::vector<int>> &map, int tileSize) {
 }
 
 void TileMap::LoadTextures(const std::vector<const char *>& textures, const SDL_Rect& rect) {
-    spdlog::info("TileMap::LoadTextures");
+    spdlog::info("Loading textures");
     m_SrcRect = rect;
     CleanTextures();
     for (auto textureFileName : textures) {
