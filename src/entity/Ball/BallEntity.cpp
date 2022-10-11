@@ -111,13 +111,18 @@ void BallEntity::OnCollision(ColliderComponent &collider, float deltaTime) {
         Vector2D pos = collider.transform->position;
         int w = collider.transform->width;
         int h = collider.transform->height;
+
+        // horizontal side of the obstacle
         if ((m_Transform->position.x >= pos.x && m_Transform->position.x <= pos.x + w) ||
             ((m_Transform->position.x + m_Transform->width >= pos.x && m_Transform->position.x + m_Transform->width <= pos.x + w))) {
             m_Transform->velocity.y *= -1;
             m_Transform->position.y += m_Transform->velocity.y * deltaTime;
         }
+
+        // vertical side of the obstacle
         if ((m_Transform->position.y >= pos.y && m_Transform->position.y <= pos.y + h) ||
             (m_Transform->position.y + m_Transform->height >= pos.y && m_Transform->position.y + m_Transform->height <= pos.y + h)) {
+
             m_Transform->velocity.x *= -1;
             m_Transform->position.x += m_Transform->velocity.x * deltaTime;
         }
