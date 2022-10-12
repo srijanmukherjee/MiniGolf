@@ -24,7 +24,7 @@ void LevelCompleteScene::Init() {
     surfaceLevelComplete = TTF_RenderText_Solid(FONT_MAIN, "Game Complete", TEXT_COLOR);
     textureLevelComplete = SDL_CreateTextureFromSurface(Game::renderer, surfaceLevelComplete);
     TTF_SizeText(FONT_MAIN, "MiniGolf", &w, &h);
-    rectLevelComplete = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 - 100, w, h};
+    rectLevelComplete = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 - 100, w + 10, h};
 
     m_Manager.AddEntity<GolfTileMap>(this);
 }
