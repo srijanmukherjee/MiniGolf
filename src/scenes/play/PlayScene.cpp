@@ -23,8 +23,8 @@ void PlayScene::Update(float deltaTime) {
     if (ballEntity->IsInsideGoal()) {
         if (m_CurrentLevel + 1 < TOTAL_LEVELS)
             LoadLevel(levels[++m_CurrentLevel]);
-        else
-            Game::GetInstance().LoadScene(new LevelCompleteScene());
+//        else
+        Game::GetInstance().LoadScene(new LevelCompleteScene());
     }
 }
 
