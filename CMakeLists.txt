@@ -42,7 +42,7 @@ add_executable(GolfGame
         src/engine/Scene.h
         src/scenes/play/PlayScene.cpp
         src/scenes/play/PlayScene.h
-        src/entity/Wall/WallEntity.cpp src/entity/Wall/WallEntity.h src/engine/ECS/Manager.h src/entity/CollidableEntity/CollidableEntity.cpp src/entity/Obstacle/Obstacle.cpp src/entity/Obstacle/Obstacle.h src/entity/Obstacle/ObstacleSmall.h src/entity/Obstacle/ObstacleBig.h src/entity/Ball/PowerBarComponent.h src/entity/Goal/GoalEntity.cpp src/entity/Goal/GoalEntity.h src/scenes/menu/MenuScene.cpp src/scenes/menu/MenuScene.h src/res/Levels.h src/scenes/level_creator/LevelCreatorScene.cpp src/scenes/level_creator/LevelCreatorScene.h)
+        src/entity/Wall/WallEntity.cpp src/entity/Wall/WallEntity.h src/engine/ECS/Manager.h src/entity/CollidableEntity/CollidableEntity.cpp src/entity/Obstacle/Obstacle.cpp src/entity/Obstacle/Obstacle.h src/entity/Obstacle/ObstacleSmall.h src/entity/Obstacle/ObstacleBig.h src/entity/Ball/PowerBarComponent.h src/entity/Goal/GoalEntity.cpp src/entity/Goal/GoalEntity.h src/scenes/menu/MenuScene.cpp src/scenes/menu/MenuScene.h src/res/Levels.h src/scenes/level_creator/LevelCreatorScene.cpp src/scenes/level_creator/LevelCreatorScene.h src/scenes/level_complete/LevelCompleteScene.cpp src/scenes/level_complete/LevelCompleteScene.h)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 

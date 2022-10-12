@@ -6,6 +6,7 @@
 #include "../../entity/Obstacle/ObstacleSmall.h"
 #include "../../entity/Obstacle/ObstacleBig.h"
 #include "../../entity/Goal/GoalEntity.h"
+#include "../level_complete/LevelCompleteScene.h"
 
 BallEntity *ballEntity;
 GolfTileMap *tileMap;
@@ -30,6 +31,8 @@ void PlayScene::Update(float deltaTime) {
     if (ballEntity->IsInsideGoal()) {
         if (m_CurrentLevel + 1 < TOTAL_LEVELS)
             LoadLevel(levels[++m_CurrentLevel]);
+        else
+            Game::GetInstance().LoadScene(new LevelCompleteScene());
     }
 }
 
