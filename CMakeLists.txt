@@ -13,8 +13,6 @@ add_executable(GolfGame
         src/main.cpp
         src/engine/Game.h
         src/engine/Game.cpp
-        src/engine/GameObject.h
-        src/engine/GameObject.cpp
         src/engine/TextureManager.h
         src/engine/TextureManager.cpp
         src/math/Vector2D.h

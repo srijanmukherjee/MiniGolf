@@ -6,14 +6,7 @@
 void LevelCreatorScene::Init() {
     Scene::Init();
     Game::GetInstance().SetWindowTitle("Level Creator");
-
-    tileMap = new GolfTileMap();
-}
-
-void LevelCreatorScene::Draw() {
-    if (tileMap)
-        tileMap->Render();
-    Scene::Draw();
+    m_Manager.AddEntity<GolfTileMap>(this);
 }
 
 void LevelCreatorScene::HandleEvent(SDL_Event &event) {

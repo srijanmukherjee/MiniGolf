@@ -6,8 +6,7 @@
 
 class GolfTileMap : public TileMap {
 public:
-    GolfTileMap();
-//    void LoadLevel(const char *Level);
+    explicit GolfTileMap(void * scene);
 };
 
 

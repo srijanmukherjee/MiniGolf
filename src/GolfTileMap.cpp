@@ -23,7 +23,7 @@ std::vector<std::vector<int>> levelOne = {
         {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
 };
 
-GolfTileMap::GolfTileMap() {
+GolfTileMap::GolfTileMap(void * scene) : TileMap(scene) {
     LoadTextures({
          "Group 1.png",
          "Group 2.png",

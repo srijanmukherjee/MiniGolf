@@ -9,23 +9,15 @@
 #include "../level_complete/LevelCompleteScene.h"
 
 BallEntity *ballEntity;
-GolfTileMap *tileMap;
 
 const int TOTAL_LEVELS = sizeof(levels) / sizeof(LevelDescriptor);
 
 void PlayScene::Init() {
     Scene::Init();
-    tileMap = new GolfTileMap();
     LoadLevel(levels[m_CurrentLevel]);
 }
 
-void PlayScene::Draw() {
-    tileMap->Render();
-    Scene::Draw();
-}
-
 void PlayScene::Update(float deltaTime) {
-    tileMap->Update(deltaTime);
     Scene::Update(deltaTime);
 
     if (ballEntity->IsInsideGoal()) {
@@ -58,6 +50,7 @@ void PlayScene::LoadLevel(const LevelDescriptor& levelDescriptor) {
     m_Manager.Reset();
     m_CollisionManager.Reset();
     m_Manager.Refresh();
+    m_Manager.AddEntity<GolfTileMap>(this);
     m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, -1, Constant::SCREEN_WIDTH, 1 });
     m_Manager.AddEntity<WallEntity>(this, "wall_horizontal", SDL_Rect{ 0, Constant::SCREEN_HEIGHT, Constant::SCREEN_WIDTH, 1 });
     m_Manager.AddEntity<WallEntity>(this, "wall_vertical", SDL_Rect{ -1, 0, 1, Constant::SCREEN_HEIGHT });

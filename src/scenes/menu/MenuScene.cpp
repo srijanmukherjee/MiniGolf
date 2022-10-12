@@ -5,7 +5,6 @@
 #include "../level_creator/LevelCreatorScene.h"
 #include "SDL2/SDL_ttf.h"
 
-GolfTileMap *tileMap2;
 TTF_Font *FONT_TITLE;
 TTF_Font *FONT_HINT;
 SDL_Color TEXT_COLOR{255, 255, 255};
@@ -20,7 +19,6 @@ SDL_Rect rectHint;
 
 void MenuScene::Init() {
     Scene::Init();
-    tileMap2 = new GolfTileMap();
     FONT_TITLE = TTF_OpenFont("./assets/fonts/Warrior of World 400.ttf", 78);
     FONT_HINT = TTF_OpenFont("./assets/fonts/Honey Mints 400.ttf", 32);
 
@@ -38,6 +36,8 @@ void MenuScene::Init() {
     textureHint = SDL_CreateTextureFromSurface(Game::renderer, surfaceHint);
     TTF_SizeText(FONT_HINT, "Click to start playing", &w, &h);
     rectHint = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 + 90, w, h };
+
+    m_Manager.AddEntity<GolfTileMap>(this);
 }
 
 void MenuScene::Update(float deltaTime) {
@@ -55,8 +55,8 @@ void MenuScene::HandleEvent(SDL_Event &event) {
 }
 
 void MenuScene::Draw() {
+    Scene::Draw();
     SDL_Rect rect{0, 0, Constant::SCREEN_WIDTH, Constant::SCREEN_HEIGHT};
-    tileMap2->Render();
 
     // overlay
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 150);
@@ -65,8 +65,6 @@ void MenuScene::Draw() {
     // texts
     SDL_RenderCopy(Game::renderer, textureTitle, nullptr, &rectTitle);
     SDL_RenderCopy(Game::renderer, textureHint, nullptr, &rectHint);
-
-    Scene::Draw();
 }
 
 MenuScene::~MenuScene() {
