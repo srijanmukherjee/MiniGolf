@@ -30,12 +30,12 @@ void MenuScene::Init() {
     surfaceTitle = TTF_RenderText_Solid(FONT_TITLE, "MiniGolf", TEXT_COLOR);
     textureTitle = SDL_CreateTextureFromSurface(Game::renderer, surfaceTitle);
     TTF_SizeText(FONT_TITLE, "MiniGolf", &w, &h);
-    rectTitle = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 - 100, w, h};
+    rectTitle = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 - 100, w + 10, h};
 
     surfaceHint = TTF_RenderText_Solid(FONT_HINT, "Click to start playing", TEXT_COLOR);
     textureHint = SDL_CreateTextureFromSurface(Game::renderer, surfaceHint);
     TTF_SizeText(FONT_HINT, "Click to start playing", &w, &h);
-    rectHint = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 + 90, w, h };
+    rectHint = { Constant::SCREEN_WIDTH / 2 - w / 2, Constant::SCREEN_HEIGHT / 2 - h / 2 + 90, w + 10, h };
 
     m_Manager.AddEntity<GolfTileMap>(this);
 }
