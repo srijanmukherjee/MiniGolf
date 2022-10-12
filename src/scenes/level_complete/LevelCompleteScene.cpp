@@ -14,7 +14,7 @@ SDL_Rect rectLevelComplete;
 void LevelCompleteScene::Init() {
     Scene::Init();
     SDL_Color TEXT_COLOR{255, 255, 255, 255};
-    FONT_MAIN = TTF_OpenFont("./assets/fonts/BLUECHERIES.ttf", 52);
+    FONT_MAIN = TTF_OpenFont("./assets/fonts/aAbstractGroovy.ttf", 52);
 
     if (FONT_MAIN == nullptr) {
         spdlog::error("failed to load font: {}", SDL_GetError());
