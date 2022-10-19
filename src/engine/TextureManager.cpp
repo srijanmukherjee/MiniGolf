@@ -9,7 +9,7 @@ SDL_Texture *TextureManager::LoadTexture(const char *filename) {
     SDL_Surface* surface = IMG_Load(path.c_str());
 
     if (surface == nullptr) {
-        spdlog::error("Failed to load texture {}", path);
+        spdlog::error("Failed to load m_Texture {}", path);
         return nullptr;
     }
 

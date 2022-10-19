@@ -4,6 +4,9 @@
 
 #include "../../engine/Scene.h"
 #include "../../res/Levels.h"
+#include "../../entity/Clock/ClockEntity.h"
+
+#include <chrono>
 
 class PlayScene : public Scene {
 public:
@@ -15,6 +18,9 @@ public:
 
 private:
     int m_CurrentLevel = 0;
+    long m_TimeTookMillis = 0;
+
+    ClockEntity *m_ClockEntity = nullptr;
 };
 
 

@@ -72,6 +72,8 @@ MenuScene::~MenuScene() {
     SDL_DestroyTexture(textureTitle);
     SDL_FreeSurface(surfaceHint);
     SDL_DestroyTexture(textureHint);
+    TTF_CloseFont(FONT_HINT);
+    TTF_CloseFont(FONT_TITLE);
 }
 
 void MenuScene::ChangeScene() {

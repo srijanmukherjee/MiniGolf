@@ -7,6 +7,7 @@
 #include "../../entity/Obstacle/ObstacleBig.h"
 #include "../../entity/Goal/GoalEntity.h"
 #include "../level_complete/LevelCompleteScene.h"
+#include "../../entity/Clock/ClockEntity.h"
 
 BallEntity *ballEntity;
 
@@ -21,10 +22,11 @@ void PlayScene::Update(float deltaTime) {
     Scene::Update(deltaTime);
 
     if (ballEntity->IsInsideGoal()) {
-        if (m_CurrentLevel + 1 < TOTAL_LEVELS)
+        if (m_CurrentLevel + 1 < TOTAL_LEVELS) {
+            m_TimeTookMillis = m_ClockEntity == nullptr ? 0 : m_ClockEntity->GetElapsedTime();
             LoadLevel(levels[++m_CurrentLevel]);
-//        else
-        Game::GetInstance().LoadScene(new LevelCompleteScene());
+        }
+        else Game::GetInstance().LoadScene(new LevelCompleteScene());
     }
 }
 
@@ -69,6 +71,9 @@ void PlayScene::LoadLevel(const LevelDescriptor& levelDescriptor) {
     int w = ballEntity->GetComponent<TransformComponent>().width;
     ballEntity->GetComponent<TransformComponent>().position = Vector2D(
             levelDescriptor.ballPos.first * 32 + w / 2,levelDescriptor.ballPos.second * 32 + w / 2);
+
+    m_ClockEntity = &m_Manager.AddEntity<ClockEntity>(this, m_TimeTookMillis);
+    m_ClockEntity->GetComponent<TransformComponent>().position = { Constant::SCREEN_WIDTH - 10, 10 };
 
     m_Manager.Update(0);
     m_CollisionManager.StartDetectingCollision();

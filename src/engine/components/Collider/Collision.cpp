@@ -16,7 +16,7 @@ bool Collision::AABB(Entity &a, Entity &b, float deltaTime) {
     auto &transformB = b.GetComponent<TransformComponent>();
     Vector2D posA = transformA.position;
     Vector2D posB = transformB.position;
-    // project the rect by the velocity to detect possible collision in the next frame
+    // project the m_Rect by the velocity to detect possible collision in the next frame
     posA += transformA.velocity * deltaTime;
     posB += transformB.velocity * deltaTime;
     rectA.x = posA.x;
