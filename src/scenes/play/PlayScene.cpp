@@ -22,11 +22,11 @@ void PlayScene::Update(float deltaTime) {
     Scene::Update(deltaTime);
 
     if (ballEntity->IsInsideGoal()) {
+        m_TimeTookMillis = m_ClockEntity == nullptr ? 0 : m_ClockEntity->GetElapsedTime();
         if (m_CurrentLevel + 1 < TOTAL_LEVELS) {
-            m_TimeTookMillis = m_ClockEntity == nullptr ? 0 : m_ClockEntity->GetElapsedTime();
             LoadLevel(levels[++m_CurrentLevel]);
         }
-        else Game::GetInstance().LoadScene(new LevelCompleteScene());
+        else Game::GetInstance().LoadScene(new LevelCompleteScene(m_TimeTookMillis));
     }
 }
 
